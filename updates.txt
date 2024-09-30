@@ -1,0 +1,92 @@
+//header
+
+NAvbar  bg orange
+text color white logo white 
+btn clor White text #000
+2 dra btn border #fff text #fff
+
+
+Icon replace topi wala icon 
+
+first page ki first heading pa . replace ?
+
+Services section jidr jidr color arha ha bg change orabge
+
+About us orange 
+faqs dull orange 
+contact us icon font aweosome with bg dull white 
+contact us bg orange
+
+Helper signup remove country
+Service location upper zip code ki jagah
+
+change the functionality when clcik on lincese then show upload license box under it same as insured remove from services
+
+
+
+Inner admin header 
+order aur setting remove from profile
+
+
+MAde a toggle on left side just like inspirit art navbar
+from left 300px
+
+replace phone nmber with email
+4 links 
+open 
+in progess
+Completed
+Saved
+settings
+
+Three pages bana ga tab remove hoon ga Helper order
+
+
+//Help order
+heart remove
+Add name with service
+rating remove 
+title under small description
+timing remove pricing rakhni
+Unpublish cancel modify inside the box
+#id ka badge left
+
+//Help form page
+=>Us ki jagah create help
+
+Helper form ka andar remove ka butto when we click on it removes option appear  with remove button with every box we add
+
+Help form pa upload license remove
+
+//User ka andar setting payment ka page
+titile Account replace bank account second Payment replace debit/credit card
+Add p m ki jagah add bank account 
+user payment ki jagah payment setting 
+
+add payment method ka andar cvv ka baad zip code
+
+// Profile form ka page user sa remove
+
+//User user account ka page ma same signup inputs full name email
+//Notification setting ma send ki jagah enable 
+//Currnt pass wali row remove kr ka neecha update password ka button lagana
+
+
+
+Helper  and user ka andar helper order ma boxes ka upper order id lagani ha 
+JAb bi ksis page pa jai ga should bi according to tab name 
+
+//helper order pa pool remove krna word
+tabs remove krna ha
+same posting format ma show krwana boxes wala
+
+
+//Footer pa youtube icon hover pa orange icon
+
+
+//setting account page title profile settings
+same sara option helper signup wala
+//neecha helper setting heading remove kr deni aa
+
+
+chatbtn
