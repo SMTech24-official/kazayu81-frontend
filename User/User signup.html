@@ -282,41 +282,57 @@
             };
             try {
                 // Send the data to the backend API
-                const response = await fetch('http://localhost:3000/api/v1/customer/create-customer', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(formData),
-                });
+                const response = await fetch(
+                    'https://helper-on-way.vercel.app/api/v1/customer/create-customer', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(formData),
+                    });
                 const result = await response.json();
                 if (result.success) {
 
-                    const loginData = {
+                    const formData = {
                         email,
                         password,
                     }
-                    try {
-                        // Send the data to the backend API
-                        const response = await fetch('http://localhost:3000/api/v1/auth/login', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                            },
-                            body: JSON.stringify(loginData),
-                        });
+                    
+              
+                    alert ("please go to login page and login")
+                    window.location.href = 'https://how-s-front-end.vercel.app/Helper/Helper-login.html';
+                    // try {
+                    //     // Send the data to the backend API
+                    //     const response = await fetch('https://helper-on-way.vercel.app/api/v1/auth/login', {
+                    //         method: 'POST',
+                    //         headers: {
+                    //             'Content-Type': 'application/json',
+                    //         },
+                    //         body: JSON.stringify(formData),
+                    //     });
 
 
 
-                        const result = await response.json();
-                        if (result.success) {
-                            localStorage.setItem('userData', JSON.stringify(result));
-                            window.location.href = 'http://127.0.0.1:5500/User/Dashboard.html';
-                        }
-                    } catch (error) {
-                        console.error('Error:', error);
-                        alert(error.message);
-                    }
+                    //     const result = await response.json();
+                    //     if (result.success) {
+                    //         localStorage.setItem('userData', JSON.stringify(result));
+                    //         if (result.data.role == 'HELPER') {
+                    //             window.location.href = 'https://how-s-front-end.vercel.app/Helper/Open.html';
+                    //         }
+                    //         if (result.data.role == 'CUSTOMER') {
+                    //             window.location.href =
+                    //                 'https://how-s-front-end.vercel.app/User/Dashboard.html'
+                    //         } else(window.location.href = 'https://how-s-front-end.vercel.app')
+
+                    //     }
+
+
+                    //     //window.location.href = 'https://how-s-front-end.vercel.app/User/Dashboard.html'; 
+
+                    // } catch (error) {
+                    //     console.error('Error:', error);
+                    //     alert(error.message);
+                    // }
                 }
             } catch (error) {
                 console.error('Error:', error);

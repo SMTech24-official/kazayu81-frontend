@@ -13,7 +13,7 @@ document.getElementById('signinForm').addEventListener('submit', async function 
 
     try {
         // Send the data to the backend API
-        const response = await fetch('http://localhost:3000/api/v1/auth/login', {
+        const response = await fetch('https://helper-on-way.vercel.app/api/v1/auth/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -27,16 +27,16 @@ document.getElementById('signinForm').addEventListener('submit', async function 
         if (result.success) {
             localStorage.setItem('userData', JSON.stringify(result));
             if (result.data.role == 'HELPER') {
-                window.location.href = 'http://127.0.0.1:5500/Helper/Open.html';
+                window.location.href = 'https://how-s-front-end.vercel.app/Helper/Open.html';
             }
             if (result.data.role == 'CUSTOMER') {
-                window.location.href = 'http://127.0.0.1:5500/User/Dashboard.html'
-            }else(window.location.href = 'http://127.0.0.1:5500')
+                window.location.href = 'https://how-s-front-end.vercel.app/User/Dashboard.html'
+            }else(window.location.href = 'https://how-s-front-end.vercel.app')
 
         }
 
 
-        //window.location.href = 'http://127.0.0.1:5500/User/Dashboard.html'; 
+        //window.location.href = 'https://helper-on-way.vercel.app/User/Dashboard.html'; 
 
     } catch (error) {
         console.error('Error:', error);

@@ -483,7 +483,7 @@
     
                 if (!userData) {
                     // If no user data, redirect back to login
-                    window.location.href = 'http://127.0.0.1:5500/User/User%20login.html';
+                    window.location.href = 'https://helper-on-way.vercel.app/User/User%20login.html';
                 } else {
     
                     // Use the userData to display user info on the dashboard
@@ -533,13 +533,13 @@
                     localStorage.removeItem('userData');
 
                     // Redirect to the CUSTOMER login page
-                    window.location.href = 'http://127.0.0.1:5500/User/User%20login.html';
+                    window.location.href = 'https://helper-on-way.vercel.app/User/User%20login.html';
                 } else if (parsedUserData.data && parsedUserData.data.role === "HELPER") {
                     // Remove userData from localStorage
                     localStorage.removeItem('userData');
 
                     // Redirect to the HELPER login page
-                    window.location.href = 'http://127.0.0.1:5500/Helper/Helper-login.html';
+                    window.location.href = 'https://helper-on-way.vercel.app/Helper/Helper-login.html';
                 }
             } catch (error) {
                 console.error("Error parsing userData from localStorage:", error);
