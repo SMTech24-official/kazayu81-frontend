@@ -1,3 +1,6 @@
+const BACKEND = "http://localhost:5000";
+const FRONTEND = "http://127.0.0.1:5500";
+
 document.getElementById("signinForm").addEventListener("submit", async function (event) {
   event.preventDefault(); // Prevent the form from submitting normally
 
@@ -9,11 +12,11 @@ document.getElementById("signinForm").addEventListener("submit", async function 
     email,
     password,
   };
-  console.log(formData);
+  // console.log(formData);
 
   try {
     // Send the data to the backend API
-    const response = await fetch("http://localhost:5000/api/v1/auth/login", {
+    const response = await fetch(`${BACKEND}/api/v1/auth/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -25,16 +28,15 @@ document.getElementById("signinForm").addEventListener("submit", async function 
 
     const result = await response.json();
     if (result.success) {
-      localStorage.setItem("userData", JSON.stringify(result));
+      localStorage.setItem("token", JSON.stringify(result?.data?.accessToken));
+      console.log(result?.data?.accessToken);
       if (result.data.role == "HELPER") {
-        window.location.href = "http://127.0.0.1:5500/Helper/Open.html";
+        window.location.href = `${FRONTEND}/Helper/Open.html`;
       }
       if (result.data.role == "CUSTOMER") {
-        window.location.href = "http://127.0.0.1:5500/User/Dashboard.html";
-      } else window.location.href = "http://127.0.0.1:5500";
+        window.location.href = `${FRONTEND}/User/Dashboard.html`;
+      } else window.location.href = FRONTEND;
     }
-
-    //window.location.href = 'https://helper-on-way.vercel.app/User/Dashboard.html';
   } catch (error) {
     console.error("Error:", error);
     alert(error.message);

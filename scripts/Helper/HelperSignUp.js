@@ -1,4 +1,4 @@
-const BACKEND = "http://localhost:5000/api/v1/helper/create-helper";
+const BACKEND = "http://localhost:5000";
 const FRONTEND = "http://127.0.0.1:5500";
 document.getElementById("signupForm").addEventListener("submit", async (event) => {
   event.preventDefault(); // Prevent the default form submission
@@ -60,7 +60,7 @@ document.getElementById("signupForm").addEventListener("submit", async (event) =
 
   // Send the form data to the backend API
   try {
-    const response = await fetch(BACKEND, {
+    const response = await fetch(`${BACKEND}/api/v1/helper/create-helper`, {
       method: "POST",
       body: formData,
     });
