@@ -27,31 +27,32 @@ document.getElementById("signinForm").addEventListener("submit", async function 
     // http://127.0.0.1:5500/Helper/Helper-login.html
 
     const result = await response.json();
-    if (result.success) {
-      localStorage.setItem("token", JSON.stringify(result?.data?.accessToken));
-      console.log(result?.data?.accessToken);
-      // get me "/api/v1/auth/get-me"
+    console.log(result);
+    // if (result.success) {
+    //   localStorage.setItem("token", JSON.stringify(result?.data?.accessToken));
+    //   console.log(result?.data?.accessToken);
+    //   // get me "/api/v1/auth/get-me"
 
-      const TOKEN = JSON.parse(localStorage.getItem("token"));
-      const response = await fetch(`${BACKEND}/api/v1/auth/get-me`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `${TOKEN}`,
-        },
-      });
-      const GetmeData = await response.json();
-      if (GetmeData.success) {
-        localStorage.setItem("user", JSON.stringify(GetmeData?.data));
-      }
+    //   const TOKEN = JSON.parse(localStorage.getItem("token"));
+    //   const response = await fetch(`${BACKEND}/api/v1/auth/get-me`, {
+    //     method: "GET",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //       Authorization: `${TOKEN}`,
+    //     },
+    //   });
+    //   const GetmeData = await response.json();
+    //   if (GetmeData.success) {
+    //     localStorage.setItem("user", JSON.stringify(GetmeData?.data));
+    //   }
 
-      if (result.data.role == "HELPER") {
-        window.location.href = `${FRONTEND}/Helper/Open.html`;
-      }
-      if (result.data.role == "CUSTOMER") {
-        window.location.href = `${FRONTEND}/User/Dashboard.html`;
-      } else window.location.href = FRONTEND;
-    }
+    //   if (result.data.role == "HELPER") {
+    //     window.location.href = `${FRONTEND}/Helper/Open.html`;
+    //   }
+    //   if (result.data.role == "CUSTOMER") {
+    //     window.location.href = `${FRONTEND}/User/Dashboard.html`;
+    //   } else window.location.href = FRONTEND;
+    // }
   } catch (error) {
     console.error("Error:", error);
     alert(error.message);
