@@ -28,6 +28,11 @@ document.getElementById("signinForm").addEventListener("submit", async function 
 
     const result = await response.json();
     console.log(result);
+
+    if (result.success) {
+      window.location.href = `${FRONTEND}/shared/enter-otp.html?idf=${result?.data}`;
+    }
+
     // if (result.success) {
     //   localStorage.setItem("token", JSON.stringify(result?.data?.accessToken));
     //   console.log(result?.data?.accessToken);
