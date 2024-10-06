@@ -66,15 +66,16 @@ document.getElementById("signupForm").addEventListener("submit", async (event) =
     });
 
     const result = await response.json();
+    console.log(result);
     if (result.success) {
       console.log(result);
       //   send user to login page
-      window.location.href = `${FRONTEND}/Helper/Helper-login.html`;
+      window.location.href = `${FRONTEND}/shared/login.html`;
     }
   } catch (error) {
     console.error("Error:", error);
     alert(error.message);
   }
 
-  console.log(bodyData, licenseImage, insurenceImage);
+  // console.log(bodyData, licenseImage, insurenceImage);
 });

@@ -41,8 +41,8 @@ function resetPassword(password) {
   //   get token from query url
   const urlParams = new URLSearchParams(window.location.search);
   const token = urlParams.get("token");
-  const id = urlParams.get("userId");
-  console.log(token, id, password);
+  const id = Number(urlParams.get("userId"));
+  console.log(token, typeof id, password);
 
   //   /api/v1/auth/reset-password
 
@@ -61,9 +61,10 @@ function resetPassword(password) {
   })
     .then((response) => response.json())
     .then((data) => {
+      console.log(data);
       if (data.success) {
         alert("Password reset successfully! Please log in with your new password.");
-        window.location.href = "../Helper/Helper-login.html"; // Redirect to login page
+        window.location.href = "../../shared/login.html"; // Redirect to login page
       } else {
         showError("Failed to reset password. Please try again.");
       }

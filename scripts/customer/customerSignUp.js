@@ -43,7 +43,7 @@ document.getElementById("signupForm").addEventListener("submit", async function 
     if (result.success) {
       // redirect user to login page
 
-      window.location.href = `${FRONTEND}/Helper/Helper-login.html`;
+      window.location.href = `${FRONTEND}/shared/login.html`;
     }
   } catch (error) {
     console.error("Error:", error);

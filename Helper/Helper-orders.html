@@ -689,14 +689,14 @@
         // Retrieve the user data from localStorage
         const userData = JSON.parse(localStorage.getItem("userData"));
 
-        if (!userData) {
-          // If no user data, redirect back to login
-          window.location.href = "https://helper-on-way.vercel.app/User/User%20login.html";
-        } else {
-          // Use the userData to display user info on the dashboard
-          document.getElementById("name").textContent = userData.data.name || "rahat"; // Change 'user.name' to match your response structure
-          document.getElementById("email").textContent = userData.data.email || "rahat@gmail.com";
-        }
+        // if (!userData) {
+        //   // If no user data, redirect back to login
+        //   window.location.href = "https://helper-on-way.vercel.app/User/User%20login.html";
+        // } else {
+        //   // Use the userData to display user info on the dashboard
+        //   document.getElementById("name").textContent = userData.data.name || "rahat"; // Change 'user.name' to match your response structure
+        //   document.getElementById("email").textContent = userData.data.email || "rahat@gmail.com";
+        // }
       });
     </script>
     <script>

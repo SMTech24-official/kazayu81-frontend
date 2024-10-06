@@ -24,7 +24,7 @@ document.getElementById("signinForm").addEventListener("submit", async function 
       body: JSON.stringify(formData),
     });
 
-    // http://127.0.0.1:5500/Helper/Helper-login.html
+    
 
     const result = await response.json();
     console.log(result);
