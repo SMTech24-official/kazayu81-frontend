@@ -148,7 +148,9 @@ const UserSignup = () => {
       </section>
 
       {/* Content Section */}
-      <CallToAction />
+      <div className="mt-32">
+        <CallToAction />
+      </div>
     </div>
   );
 };

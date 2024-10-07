@@ -3,7 +3,7 @@ import Link from "next/link";
 export default function CallToAction() {
   return (
     <div className=" p-5 xl:p-12">
-      <div className="bg-orange-500 py-16 text-center mt-32 rounded-xl">
+      <div className="bg-orange-500 py-16 text-center rounded-xl">
         <div className="container mx-auto">
           <h1 className="text-2xl sm:text-3xl font-bold mb-6 text-white">
             Need help at your home.
