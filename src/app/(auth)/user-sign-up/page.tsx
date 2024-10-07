@@ -1,7 +1,7 @@
-import React from 'react'
+import React from "react";
 
-export const UserSignUp = () => {
-  return (
-    <div>UserSignUp</div>
-  )
-}
+const UserSignUp = () => {
+  return <div>UserSignUp</div>;
+};
+
+export default UserSignUp;
