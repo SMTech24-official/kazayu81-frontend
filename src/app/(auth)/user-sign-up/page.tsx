@@ -27,7 +27,7 @@ const UserSignup = () => {
               </h2>
               <p className="mb-4 font-bold text-white">
                 I already have an account?
-                <Link href="/User/User-login">
+                <Link href="/sign-in">
                   <span className="text-black hover:underline ml-1">
                     Sign In
                   </span>

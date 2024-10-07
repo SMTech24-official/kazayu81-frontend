@@ -10,15 +10,19 @@ export default function HelperSignupForm() {
   const [isInsured, setIsInsured] = useState(false);
 
   return (
-    <section className="bg-orange-500 py-16">
+    <section className="bg-orange-500 py-16 border-t border-gray-300">
       <div className="container mx-auto px-6">
         <div className="bg-white rounded-xl shadow-lg p-8 max-w-2xl mx-auto">
           <div className="text-center">
-            <Image src={MainIcon} alt="Main Icon" className="w-12 h-12 mx-auto mb-4" />
+            <Image
+              src={MainIcon}
+              alt="Main Icon"
+              className="w-12 h-12 mx-auto mb-4"
+            />
             <h2 className="text-3xl font-bold">Become helper!</h2>
             <p className="mt-2">
               I already have an account?{" "}
-              <a href="/shared/login" className="text-orange-500 hover:underline">
+              <a href="/sign-in" className="text-orange-500 hover:underline">
                 Sign In
               </a>
             </p>
@@ -30,7 +34,9 @@ export default function HelperSignupForm() {
               <Image src={GoogleIcon} alt="Google" className="w-5 h-5 mr-2" />
               Continue with Google
             </button>
-            <p className="text-gray-500 mt-2">Or create your own account here!</p>
+            <p className="text-gray-500 mt-2">
+              Or create your own account here!
+            </p>
           </div>
 
           {/* Signup Form */}
@@ -98,7 +104,9 @@ export default function HelperSignupForm() {
                   />
                 </div>
                 <div className="flex-1">
-                  <label className="form-label">Business EIN/Tax ID Number</label>
+                  <label className="form-label">
+                    Business EIN/Tax ID Number
+                  </label>
                   <input
                     type="text"
                     className="w-full p-3 border rounded-md focus:outline-none focus:ring focus:ring-orange-300"
@@ -251,7 +259,12 @@ export default function HelperSignupForm() {
             </div>
 
             <div className="flex items-center justify-start mt-4 gap-2">
-              <input type="checkbox" id="termsUser" className="form-checkbox" required />
+              <input
+                type="checkbox"
+                id="termsUser"
+                className="form-checkbox"
+                required
+              />
               <label htmlFor="termsUser">
                 I accept the{" "}
                 <a href="#" className="text-orange-500 hover:underline">
@@ -261,7 +274,12 @@ export default function HelperSignupForm() {
             </div>
 
             <div className="flex items-center justify-start mt-2 gap-2">
-              <input type="checkbox" id="policyUser" className="form-checkbox" required />
+              <input
+                type="checkbox"
+                id="policyUser"
+                className="form-checkbox"
+                required
+              />
               <label htmlFor="policyUser">
                 I have reviewed and agree to Hows{" "}
                 <a href="#" className="text-orange-500 hover:underline">
@@ -271,7 +289,10 @@ export default function HelperSignupForm() {
             </div>
 
             <div className="mt-6">
-              <button type="submit" className="w-full bg-orange-500 text-white py-3 rounded-md hover:bg-orange-600">
+              <button
+                type="submit"
+                className="w-full bg-orange-500 text-white py-3 rounded-md hover:bg-orange-600"
+              >
                 Sign Up
               </button>
             </div>
