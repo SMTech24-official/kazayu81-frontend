@@ -20,7 +20,7 @@ export default function Navbar() {
         {/* Desktop Menu */}
         <div className="hidden lg:flex gap-8 items-center justify-center">
           <div className="flex gap-8">
-            <Link href="#">
+            <Link href="/">
               <span className={`text-white hover:text-gray-200 ${currentRoute === "#" ? "font-bold" : ""}`}>Home</span>
             </Link>
             <Link href="#">
@@ -40,7 +40,9 @@ export default function Navbar() {
             </Link>
           </div>
           <div className="flex gap-4 font-bold">
-            <button className="bg-white text-black px-4 py-3 rounded-md shadow">Become helper &rarr;</button>
+            <Link href={"/helper-sign-up"}>
+              <button className="bg-white text-black px-4 py-3 rounded-md shadow">Become helper &rarr;</button>
+            </Link>
             <button className="border-2 border-white text-white px-4 py-3 rounded-md">Find helper</button>
           </div>
         </div>
@@ -67,7 +69,7 @@ export default function Navbar() {
           isOpen ? "max-h-screen opacity-100" : "max-h-0 opacity-0 overflow-hidden"
         }`}
       >
-        <Link href="#">
+        <Link href="/">
           <span className={`block text-white hover:text-gray-200 ${currentRoute === "#" ? "font-bold" : ""}`}>
             Home
           </span>
@@ -88,7 +90,9 @@ export default function Navbar() {
           </span>
         </Link>
         <div className="mt-4 flex flex-col sm:flex-row gap-4">
-          <button className="bg-white text-black px-4 py-2 rounded-md shadow w-fit">Become helper &rarr;</button>
+          <Link href="/helper-sign-up">
+            <button className="bg-white text-black px-4 py-2 rounded-md shadow w-fit">Become helper &rarr;</button>
+          </Link>
           <button className="border-2 border-white text-white px-4 py-2 rounded-md w-fit">Find helper</button>
         </div>
       </div>
