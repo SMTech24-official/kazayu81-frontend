@@ -2,8 +2,8 @@
 import { useState } from "react";
 import Image from "next/image";
 import MainIcon from "@/assets/images/main-ico.png";
-import GoogleIcon from "@/assets/images/google.webp";
 import CallToAction from "@/components/home/CallToAction";
+import ContinueWithGoogoe from "@/components/button/ContinueWithGoogoe";
 
 export default function HelperSignupForm() {
   const [formData, setFormData] = useState({
@@ -64,10 +64,7 @@ export default function HelperSignupForm() {
             <div className="max-w-xl mx-auto">
               {/* Google Signup */}
               <div className="mt-6 text-center">
-                <button className="flex items-center justify-center w-full bg-white text-gray-700 border rounded-md shadow-sm py-2">
-                  <Image src={GoogleIcon} alt="Google" className="w-5 h-5 mr-2" />
-                  Continue with Google
-                </button>
+                <ContinueWithGoogoe />
                 <p className="text-gray-500 mt-2">Or create your own account here!</p>
               </div>
 
