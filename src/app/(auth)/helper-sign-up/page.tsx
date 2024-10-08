@@ -3,7 +3,7 @@ import { useState } from "react";
 import Image from "next/image";
 import MainIcon from "@/assets/images/main-ico.png";
 import CallToAction from "@/components/home/CallToAction";
-import ContinueWithGoogoe from "@/components/button/ContinueWithGoogoe";
+// import ContinueWithGoogoe from "@/components/button/ContinueWithGoogoe";
 import Link from "next/link";
 
 export default function HelperSignupForm() {
@@ -64,10 +64,10 @@ export default function HelperSignupForm() {
           <div className="bg-white rounded-xl shadow-lg p-8 max-w-3xl mx-auto">
             <div className="max-w-xl mx-auto">
               {/* Google Signup */}
-              <div className="mt-6 text-center">
+              {/* <div className="mt-6 text-center">
                 <ContinueWithGoogoe />
                 <p className="text-gray-500 mt-2">Or create your own account here!</p>
-              </div>
+              </div> */}
 
               {/* Signup Form */}
               <form className="mt-6 space-y-4" onSubmit={handleSubmit}>

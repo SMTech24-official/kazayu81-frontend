@@ -3,9 +3,9 @@ import Link from "next/link";
 export default function CallToAction() {
   return (
     <div className=" p-5 xl:p-12">
-      <div className="bg-orange-500 py-16 text-center rounded-xl">
-        <div className="container mx-auto">
-          <h1 className="text-2xl sm:text-3xl font-bold mb-6 text-white">
+      <div className="bg-orange-500 py-16 h-96 text-center rounded-xl">
+        <div className="container h-full flex gap-5 items-center justify-center flex-col mx-auto">
+          <h1 className=" md:text-5xl text-xl font-bold text-white">
             Need help at your home.
             <span className="block">Helper on the way</span>
           </h1>

@@ -26,7 +26,7 @@ export default function Navbar() {
             <Link href="/">
               <span className={`text-white hover:text-gray-200 ${currentRoute === "#" ? "font-bold" : ""}`}>Home</span>
             </Link>
-            <Link href="#">
+            <Link href="/help-services">
               <span className={`text-white hover:text-gray-200 ${currentRoute === "#" ? "font-bold" : ""}`}>
                 Help Services
               </span>
@@ -47,7 +47,7 @@ export default function Navbar() {
               <button className="bg-white text-black px-4 py-3 rounded-md shadow">Become helper &rarr;</button>
             </Link>
             <Link href={"/user-sign-up"}>
-              <button className="border-2 border-white text-white px-4 py-3 rounded-md">Find helper</button>{" "}
+              <button className="border-2 border-white text-white px-4 py-[9px] rounded-md">Find helper</button>{" "}
             </Link>
           </div>
         </div>
@@ -79,7 +79,7 @@ export default function Navbar() {
             Home
           </span>
         </Link>
-        <Link href="#">
+        <Link href="/help-services">
           <span className={`block text-white hover:text-gray-200 ${currentRoute === "#" ? "font-bold" : ""}`}>
             Help Services
           </span>
