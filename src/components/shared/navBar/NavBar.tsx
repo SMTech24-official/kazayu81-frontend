@@ -10,8 +10,8 @@ import { useSession } from "next-auth/react";
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const currentRoute = usePathname();
-  const { data: session } = useSession();
-  console.log(session);
+  const { data: session, status } = useSession();
+  console.log(session, status);
 
   return (
     <nav className="bg-orange-500 p-3">
@@ -46,7 +46,9 @@ export default function Navbar() {
             <Link href={"/helper-sign-up"}>
               <button className="bg-white text-black px-4 py-3 rounded-md shadow">Become helper &rarr;</button>
             </Link>
-            <button className="border-2 border-white text-white px-4 py-3 rounded-md">Find helper</button>
+            <Link href={"/user-sign-up"}>
+              <button className="border-2 border-white text-white px-4 py-3 rounded-md">Find helper</button>{" "}
+            </Link>
           </div>
         </div>
 
@@ -96,7 +98,10 @@ export default function Navbar() {
           <Link href="/helper-sign-up">
             <button className="bg-white text-black px-4 py-2 rounded-md shadow w-fit">Become helper &rarr;</button>
           </Link>
-          <button className="border-2 border-white text-white px-4 py-2 rounded-md w-fit">Find helper</button>
+          <Link href={"/user-sign-up"}>
+            {" "}
+            <button className="border-2 border-white text-white px-4 py-2 rounded-md w-fit">Find helper</button>
+          </Link>
         </div>
       </div>
     </nav>

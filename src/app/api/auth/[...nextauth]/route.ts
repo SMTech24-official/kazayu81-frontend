@@ -6,6 +6,7 @@ export const authOptions = {
     GoogleProvider({
       clientId: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID as string,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+      //   redirect user to the home page after signing in
     }),
   ],
   secret: process.env.NEXTAUTH_SECRET,

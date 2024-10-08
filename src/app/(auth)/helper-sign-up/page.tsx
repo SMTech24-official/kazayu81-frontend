@@ -4,6 +4,7 @@ import Image from "next/image";
 import MainIcon from "@/assets/images/main-ico.png";
 import CallToAction from "@/components/home/CallToAction";
 import ContinueWithGoogoe from "@/components/button/ContinueWithGoogoe";
+import Link from "next/link";
 
 export default function HelperSignupForm() {
   const [formData, setFormData] = useState({
@@ -55,9 +56,9 @@ export default function HelperSignupForm() {
             <h2 className="text-7xl font-bold text-white ">Become helper!</h2>
             <p className="mt-2 text-white font-semibold text-xl">
               I already have an account?{" "}
-              <a href="/shared/login" className="text-black hover:underline">
+              <Link href="/sign-in" className="text-black hover:underline">
                 Sign In
-              </a>
+              </Link>
             </p>
           </div>
           <div className="bg-white rounded-xl shadow-lg p-8 max-w-3xl mx-auto">
