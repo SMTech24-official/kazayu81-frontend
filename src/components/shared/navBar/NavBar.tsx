@@ -5,13 +5,11 @@ import { usePathname } from "next/navigation";
 // import logo
 import logo from "@/assets/images/whitelogo.png";
 import Image from "next/image";
-import { useSession } from "next-auth/react";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const currentRoute = usePathname();
-  const { data: session, status } = useSession();
-  console.log(session, status);
+
 
   return (
     <nav className="bg-orange-500 p-3">

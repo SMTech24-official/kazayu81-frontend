@@ -40,8 +40,8 @@ export default function ValuesSection() {
                     <Image src={mainIcon} alt="Main icon" width={40} height={40} />
                   </div>
                 </div>
-                <h2 className="text-3xl font-bold">Our Values</h2>
-                <p className="mt-4">
+                <h2 className="text-5xl font-bold">Our Values</h2>
+                <p className="mt-4 text-base">
                   Lorem ipsum dolor sit amet consectetur. <br /> Lectus nunc ante ac orci scelerisque duis vitae
                   hendrerit ac ac pellentesque dui.
                 </p>
