@@ -10,7 +10,6 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const currentRoute = usePathname();
 
-
   return (
     <nav className="bg-orange-500 p-3">
       <div className="container mx-auto flex justify-between items-center">
@@ -34,7 +33,7 @@ export default function Navbar() {
                 About Us
               </span>
             </Link>
-            <Link href="#">
+            <Link href="/contact">
               <span className={`text-white hover:text-gray-200 ${currentRoute === "#" ? "font-bold" : ""}`}>
                 Contact Us
               </span>
@@ -87,7 +86,7 @@ export default function Navbar() {
             About Us
           </span>
         </Link>
-        <Link href="#">
+        <Link href="/contact">
           <span className={`block text-white hover:text-gray-200 ${currentRoute === "#" ? "font-bold" : ""}`}>
             Contact Us
           </span>
