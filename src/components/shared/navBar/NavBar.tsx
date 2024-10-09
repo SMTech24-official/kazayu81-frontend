@@ -31,7 +31,7 @@ export default function Navbar() {
                 Help Services
               </span>
             </Link>
-            <Link href="#">
+            <Link href="/about-us">
               <span className={`text-white hover:text-gray-200 ${currentRoute === "#" ? "font-bold" : ""}`}>
                 About Us
               </span>
@@ -84,7 +84,7 @@ export default function Navbar() {
             Help Services
           </span>
         </Link>
-        <Link href="#">
+        <Link href="/about-us">
           <span className={`block text-white hover:text-gray-200 ${currentRoute === "#" ? "font-bold" : ""}`}>
             About Us
           </span>
