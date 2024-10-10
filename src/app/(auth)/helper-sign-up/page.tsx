@@ -28,6 +28,7 @@ export default function HelperSignupForm() {
     policyAccepted: false,
     licenseFile: null,
     insuranceFile: null,
+    IndivusualSsnORtaxId: "",
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -130,6 +131,18 @@ export default function HelperSignupForm() {
                     </label>
                   </div>
                 </div>
+
+                {formData.accountType === "individual" && (
+                  <div>
+                    <label className="form-label"> SSN/Tax ID Number</label>
+                    <input
+                      type="text"
+                      name="IndivusualSsnORtaxId"
+                      onChange={handleChange}
+                      className="w-full p-3 border rounded-md focus:outline-none focus:ring focus:ring-orange-300"
+                    />
+                  </div>
+                )}
 
                 {formData.accountType === "business" && (
                   <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">

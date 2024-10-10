@@ -3,7 +3,6 @@ import ValuesSection from "@/components/about/ValuesSection";
 import AboutSection from "@/components/about/AboutSection";
 import MissionSection from "@/components/about/MissionSection";
 import FaqSection from "@/components/about/FaqSection";
-import ContentSection from "@/components/about/ContentSection";
 import CallToAction from "@/components/home/CallToAction";
 export default function AboutUs() {
   return (
