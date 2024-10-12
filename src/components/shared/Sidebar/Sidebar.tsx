@@ -10,6 +10,9 @@ import {
   DollarSign,
   Settings,
 } from "lucide-react";
+import profileImage from "@/assets/images/profile.jpg";
+import Image from "next/image";
+import Link from "next/link";
 
 export default function Sidebar({
   isOpen,
@@ -27,7 +30,13 @@ export default function Sidebar({
       >
         <div className="bg-orange-500 p-4 flex justify-between items-center">
           <div className="flex items-center space-x-3">
-            <Button>p</Button>
+            <Image
+              src={profileImage}
+              className="rounded-full"
+              width={40}
+              height={40}
+              alt="profile image"
+            />
             <div>
               <h2 className="text-white font-semibold">Zulgarnain</h2>
               <p className="text-white text-xs">zulgarnaintech@gmail.com</p>
@@ -41,7 +50,7 @@ export default function Sidebar({
             variant="ghost"
             size="icon"
             onClick={toggleSidebar}
-            className="text-white"
+            className="text-white hover:text-orange-500"
           >
             <X className="h-6 w-6" />
           </Button>
@@ -73,10 +82,15 @@ export default function Sidebar({
               },
             ].map((item, index) => (
               <li key={index}>
-                <Button variant="ghost" className="w-full justify-start">
-                  {item.icon}
-                  {item.label}
-                </Button>
+                <Link href={"#"}>
+                  <Button
+                    variant="ghost"
+                    className="w-full justify-start text-lg"
+                  >
+                    {item.icon}
+                    {item.label}
+                  </Button>
+                </Link>
               </li>
             ))}
           </ul>
