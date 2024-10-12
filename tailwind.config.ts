@@ -20,6 +20,12 @@ const config: Config = {
       },
       container: {
         center: true,
+        screens: {
+          sm: "100%",
+          md: "100%",
+          lg: "1200px",
+          xl: "1320px",
+        },
       },
     },
   },
