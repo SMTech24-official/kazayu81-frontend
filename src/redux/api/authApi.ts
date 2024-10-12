@@ -27,10 +27,25 @@ const authApi = baseApi.injectEndpoints({
       invalidatesTags: ["Auth"],
     }),
 
+    // customer signup
+
     createCustomer: build.mutation({
       query: (data: any) => {
         return {
           url: `/customer/create-customer`,
+          method: "POST",
+          body: data,
+        };
+      },
+      invalidatesTags: ["Auth"],
+    }),
+
+    // varify otp
+
+    verifyOtp: build.mutation({
+      query: (data: any) => {
+        return {
+          url: `/auth/otp-enter`,
           method: "POST",
           body: data,
         };
@@ -85,4 +100,5 @@ export const {
   useGetMyProfileQuery,
   useResetPasswordMutation,
   useCreateCustomerMutation,
+  useVerifyOtpMutation,
 } = authApi;
