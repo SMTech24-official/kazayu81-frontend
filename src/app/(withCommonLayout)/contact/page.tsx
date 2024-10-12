@@ -15,7 +15,7 @@ const Contact = () => {
           <div>
             <div className="w-full  p-6 px-8 py-12 bg-white rounded-2xl -mb-32 shadow-xl">
               <form className="space-y-4 ">
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols 1 lg:grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <Label htmlFor="fullName" className="text-lg">
                       Full Name
@@ -38,7 +38,7 @@ const Contact = () => {
                     />
                   </div>
                 </div>
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <Label htmlFor="phone" className="text-lg">
                       Phone Number

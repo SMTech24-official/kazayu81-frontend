@@ -1,7 +1,7 @@
 "use client";
 
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
-import { useGetMyProfileQuery, useVerifyOtpMutation } from "@/redux/api/authApi";
+import { useVerifyOtpMutation } from "@/redux/api/authApi";
 import { useState } from "react";
 import { toast } from "react-toastify";
 

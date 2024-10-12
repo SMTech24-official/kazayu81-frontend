@@ -1,16 +1,10 @@
-import NavBar from "@/components/shared/navBar/NavBar";
+import DashboardWrapper from "@/components/dashboardLayoutWrapper/DashboardWrapper";
 import React from "react";
 
 import { ReactNode } from "react";
 
 const CommonLayout = ({ children }: { children: ReactNode }) => {
-  return (
-    <div>
-      <NavBar />
-      {children}
-      {/* <Footer /> */}
-    </div>
-  );
+  return <DashboardWrapper>{children}</DashboardWrapper>;
 };
 
 export default CommonLayout;
