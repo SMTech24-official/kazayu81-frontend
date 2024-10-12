@@ -1,10 +1,10 @@
 "use client";
 import React from "react";
 import { FcGoogle } from "react-icons/fc";
-import { signIn, useSession } from "next-auth/react";
+import { signIn } from "next-auth/react";
 
 const ContinueWithGoogoe = () => {
-  const { data: session, status } = useSession();
+  // const { data: session, status } = useSession();
   // console.log(session, status);
   return (
     <>
