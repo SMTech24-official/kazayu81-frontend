@@ -24,7 +24,7 @@ export default function Sidebar({
   return (
     <div>
       <div
-        className={`fixed inset-y-0 left-0 w-72 top-[74px]  bg-white shadow-lg transform ${
+        className={`fixed inset-y-0 left-0 w-72 top-[90px] lg:top-[74px]  bg-white shadow-lg transform ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         } transition-transform duration-300 ease-in-out z-40`}
       >

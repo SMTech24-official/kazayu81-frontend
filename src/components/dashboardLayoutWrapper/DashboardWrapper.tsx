@@ -17,7 +17,7 @@ const DashboardWrapper: React.FC<DashboardWrapperProps> = ({ children }) => {
     <>
       <div>
         <Navbar />
-        <div className="container mb-5">
+        <div className="container mb-5 px-5">
           <Button
             onClick={toggleSidebar}
             className={` transition-all duration-300 ${

@@ -47,7 +47,7 @@ export default function Component() {
   };
 
   return (
-    <div className="shadow-xl rounded-2xl max-w-2xl mx-auto  mb-10 p-8 border-t border-gray-50">
+    <div className="shadow-xl rounded-2xl max-w-2xl mx-auto  mb-10 p-5 sm:p-8 border-t border-gray-50">
       <div className="flex flex-col items-center justify-center">
         <div className="mb-4 bg-white inline-block p-2 rounded-full">
           <Image
@@ -80,7 +80,7 @@ export default function Component() {
           />
         </div>
 
-        <div className="flex space-x-4">
+        <div className="flex flex-col sm:flex-row space-y-5 sm:space-y-0 sm:space-x-4">
           <div className="flex-1">
             <Label htmlFor="helpDuration">Help Duration</Label>
             <Input
