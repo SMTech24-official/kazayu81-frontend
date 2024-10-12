@@ -7,9 +7,11 @@ import ContinueWithGoogoe from "@/components/button/ContinueWithGoogoe";
 import CallToAction from "@/components/home/CallToAction";
 import { useCreateCustomerMutation } from "@/redux/api/authApi";
 import { Bounce, toast } from "react-toastify";
+import { useRouter } from "next/navigation";
 
 const UserSignup = () => {
   const [createCustomerFn, { isLoading: customerDataPostLoading }] = useCreateCustomerMutation();
+  const router = useRouter();
 
   const [formData, setFormData] = useState({
     firstName: "",
@@ -52,6 +54,7 @@ const UserSignup = () => {
 
       if (response.success) {
         toast.success("User created successfully");
+        router.push("/sign-in");
       }
     } catch (error) {
       const errorMessage = (error as any)?.data?.message || "An error occurred";
