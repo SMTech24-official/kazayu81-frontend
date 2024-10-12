@@ -7,9 +7,11 @@ import CallToAction from "@/components/home/CallToAction";
 import Link from "next/link";
 import { useCreateHelperMutation } from "@/redux/api/authApi";
 import { toast, Bounce } from "react-toastify";
+import { useRouter } from "next/navigation";
 
 export default function HelperSignupForm() {
   const [createHelperFn, { isLoading }] = useCreateHelperMutation();
+  const router = useRouter();
 
   const [formData, setFormData] = useState({
     firstName: "",
@@ -121,6 +123,8 @@ export default function HelperSignupForm() {
           theme: "light",
           transition: Bounce,
         });
+
+        router.push("/sign-in");
       }
     } catch (error) {
       const errorMessage = (error as any)?.data?.message || "An error occurred";

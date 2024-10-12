@@ -1,4 +1,5 @@
 "use client";
+import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
 import { useState } from "react";
 
 export default function OTPVerification() {
@@ -15,18 +16,14 @@ export default function OTPVerification() {
         <h2 className="text-3xl font-bold text-center text-gray-800 mb-6">Enter OTP</h2>
         <form onSubmit={handleVerify}>
           <div className="mb-4">
-            <label htmlFor="otp" className="block text-sm font-medium text-gray-700">
-              OTP Code
-            </label>
-            <input
-              type="text"
-              id="otp"
-              value={otp}
-              onChange={(e) => setOtp(e.target.value)}
-              placeholder="Enter 4-digit code"
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-              required
-            />
+            <InputOTP maxLength={4}>
+              <InputOTPGroup>
+                <InputOTPSlot index={0} />
+                <InputOTPSlot index={1} />
+                <InputOTPSlot index={2} />
+                <InputOTPSlot index={3} />
+              </InputOTPGroup>
+            </InputOTP>
           </div>
           <button
             type="submit"
