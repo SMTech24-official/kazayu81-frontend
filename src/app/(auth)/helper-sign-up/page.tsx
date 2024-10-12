@@ -5,8 +5,12 @@ import MainIcon from "@/assets/images/main-ico.png";
 import CallToAction from "@/components/home/CallToAction";
 // import ContinueWithGoogoe from "@/components/button/ContinueWithGoogoe";
 import Link from "next/link";
+import { useCreateHelperMutation } from "@/redux/api/authApi";
+import { toast, Bounce } from "react-toastify";
 
 export default function HelperSignupForm() {
+  const [createHelperFn, { isLoading, isError, isSuccess }] = useCreateHelperMutation();
+
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -29,7 +33,28 @@ export default function HelperSignupForm() {
     licenseFile: null,
     insuranceFile: null,
     IndivusualSsnORtaxId: "",
+    serviceType: "",
   });
+
+  //   {
+  //     "email": "khalidbd638@gmail.com",
+  //     "password": "123456",
+  //     "firstName": "John",
+  //     "lastName": "Doe",
+  //     "checkType": "individual",
+  //     "ssnId": "123-45-6789",
+  //     "phoneNumber": "+1234567890",
+  //     "address": "123 Main St",
+  //     "apartment": "Apt 4B",
+  //     "city": "New York",
+  //     "state": "NY",
+  //     "zipCode": "10001",
+  //     "serviceLocation": "Manhattan, NY",
+  //     "serviceType": "Plumbing"
+  // }
+
+  // licenseImage
+  // insurenceImage
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value, type, checked, files } = e.target as HTMLInputElement;
@@ -39,9 +64,123 @@ export default function HelperSignupForm() {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(formData);
+    // console.log("Form Data", formData);
+    // toast.success("🦄 Wow so easy!", {
+    //   position: "top-right",
+    //   autoClose: 5000,
+    //   hideProgressBar: false,
+    //   closeOnClick: true,
+    //   pauseOnHover: true,
+    //   draggable: true,
+    //   progress: undefined,
+    //   theme: "light",
+    //   transition: Bounce,
+    // });
+    // send imagaes to fondata and other data to body
+    const data = new FormData();
+    // data.append("firstName", formData?.firstName);
+    // data.append("lastName", formData?.lastName);
+    // data.append("checkType", formData?.accountType);
+    // data.append("businessLegalName", formData?.businessLegalName);
+    // data.append("businessEIN", formData?.businessEIN);
+    // data.append("email", formData?.email);
+    // data.append("phoneNumber", formData?.phone);
+    // data.append("address", formData?.address);
+    // data.append("apartment", formData?.apartment);
+    // data.append("city", formData?.city);
+    // data.append("state", formData?.state);
+    // data.append("zipCode", formData?.zipCode);
+    // data.append("serviceLocation", formData?.serviceLocation);
+    // data.append("password", formData?.password);
+    // data.append("termsAccepted", formData?.termsAccepted.toString());
+    // data.append("policyAccepted", formData?.policyAccepted.toString());
+    // data.append("ssnId", formData?.IndivusualSsnORtaxId);
+
+    //   {
+    //     "email": "khalidbd638@gmail.com",
+    //     "password": "123456",
+    //     "firstName": "John",
+    //     "lastName": "Doe",
+    //     "checkType": "individual",
+    //     "ssnId": "123-45-6789",
+    //     "phoneNumber": "+1234567890",
+    //     "address": "123 Main St",
+    //     "apartment": "Apt 4B",
+    //     "city": "New York",
+    //     "state": "NY",
+    //     "zipCode": "10001",
+    //     "serviceLocation": "Manhattan, NY",
+    //     "serviceType": "Plumbing"
+    // }
+
+    const bodyData = {
+      email: formData?.email,
+      password: formData?.password,
+      firstName: formData?.firstName,
+      lastName: formData?.lastName,
+      checkType: formData?.accountType,
+      ssnId: formData?.IndivusualSsnORtaxId,
+      phoneNumber: formData?.phone,
+      address: formData?.address,
+      apartment: formData?.apartment,
+      city: formData?.city,
+      state: formData?.state,
+      zipCode: formData?.zipCode,
+      serviceLocation: formData?.serviceLocation,
+      serviceType: formData?.serviceType,
+    };
+    data.append("data", JSON.stringify(bodyData));
+
+    if (formData.licenseFile) {
+      data.append("licenseImage", formData?.licenseFile);
+    }
+    if (formData.insuranceFile) {
+      data.append("insurenceImage", formData?.insuranceFile);
+    }
+
+    try {
+      const response = await createHelperFn(data).unwrap();
+      if (response.success) {
+        toast.success("Account created successfully!", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Bounce,
+        });
+      } else {
+        toast.error("Something Went wrong", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Bounce,
+        });
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error(`Something went wrong!`, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+      });
+    }
   };
 
   return (
@@ -139,6 +278,7 @@ export default function HelperSignupForm() {
                       type="text"
                       name="IndivusualSsnORtaxId"
                       onChange={handleChange}
+                      required={formData.accountType === "individual"}
                       className="w-full p-3 border rounded-md focus:outline-none focus:ring focus:ring-orange-300"
                     />
                   </div>
@@ -278,6 +418,29 @@ export default function HelperSignupForm() {
                       <option value="">Select Location</option>
                       <option value="Miami">Miami</option>
                       <option value="Florida">Florida</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div className="contact-col contact-col-4">
+                  <div className="form-box">
+                    <label className="form-label text-gray-700 font-medium mb-2 block">Professional Service Type</label>
+                    <select
+                      className="form-select w-full border border-gray-300 rounded-md shadow-sm p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                      id="serviceType"
+                      name="serviceType"
+                      value={formData.serviceType}
+                      onChange={handleChange} // Make sure this is present
+                      required={true}
+                    >
+                      <option value="" selected disabled>
+                        Select Service Type
+                      </option>
+                      <option value="Electrical">Electrical</option>
+                      <option value="AC_HVAC">A/C HVAC</option>
+                      <option value="Plumbing">Plumbing</option>
+                      <option value="Roofing">Roofing</option>
+                      <option value="Construction">Construction</option>
                     </select>
                   </div>
                 </div>

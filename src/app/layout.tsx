@@ -4,6 +4,8 @@ import "./globals.css";
 import { Inter } from "next/font/google";
 import Wrapper from "@/components/Wrapper/Wrapper";
 import Providers from "@/lib/Providers";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 // Importing local fonts
 const geistSans = localFont({
@@ -45,6 +47,7 @@ export default function RootLayout({
         <html lang="en">
           <body className={`${inter.variable} ${geistSans.variable} ${geistMono.variable} antialiased`}>
             {children}
+            <ToastContainer />
           </body>
         </html>
       </Wrapper>

@@ -6,7 +6,6 @@ const authApi = baseApi.injectEndpoints({
     // login
     login: build.mutation({
       query: (data: any) => {
-    
         return {
           url: `/auth/login`,
           method: "POST",
@@ -16,17 +15,16 @@ const authApi = baseApi.injectEndpoints({
       invalidatesTags: ["Auth"],
     }),
 
-    // register
-    register: build.mutation({
+    // create helper
+    createHelper: build.mutation({
       query: (data: any) => {
-       
         return {
-          url: `/users`,
+          url: `/helper/create-helper`,
           method: "POST",
           body: data,
         };
       },
-      invalidatesTags: ["Auth", "Users"],
+      invalidatesTags: ["Auth"],
     }),
 
     // forgotten profile
@@ -70,7 +68,7 @@ const authApi = baseApi.injectEndpoints({
 
 export const {
   useLoginMutation,
-  useRegisterMutation,
+  useCreateHelperMutation,
   useForgottenPasswordMutation,
   useChangePasswordMutation,
   useGetMyProfileQuery,
