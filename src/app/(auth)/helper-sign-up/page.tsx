@@ -49,7 +49,7 @@ export default function HelperSignupForm() {
 
     // Check if license file is required and not provided
     if (formData.isLicensed && !formData.licenseFile) {
-      toast.error("Please select your license file.", {
+      toast.warn("Please select your license file.", {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -65,7 +65,7 @@ export default function HelperSignupForm() {
 
     // Check if insurance file is required and not provided
     if (formData.isInsured && !formData.insuranceFile) {
-      toast.error("Please select your insurance file.", {
+      toast.warn("Please select your insurance file.", {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
