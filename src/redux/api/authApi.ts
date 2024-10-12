@@ -27,6 +27,17 @@ const authApi = baseApi.injectEndpoints({
       invalidatesTags: ["Auth"],
     }),
 
+    createCustomer: build.mutation({
+      query: (data: any) => {
+        return {
+          url: `/customer/create-customer`,
+          method: "POST",
+          body: data,
+        };
+      },
+      invalidatesTags: ["Auth"],
+    }),
+
     // forgotten profile
     forgottenPassword: build.mutation({
       query: (data: { email: string }) => ({
@@ -73,4 +84,5 @@ export const {
   useChangePasswordMutation,
   useGetMyProfileQuery,
   useResetPasswordMutation,
+  useCreateCustomerMutation,
 } = authApi;

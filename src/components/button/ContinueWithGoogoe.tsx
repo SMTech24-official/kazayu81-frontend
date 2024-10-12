@@ -5,7 +5,7 @@ import { signIn, useSession } from "next-auth/react";
 
 const ContinueWithGoogoe = () => {
   const { data: session, status } = useSession();
-  console.log(session, status);
+  // console.log(session, status);
   return (
     <>
       <button

@@ -122,34 +122,7 @@ export default function HelperSignupForm() {
           transition: Bounce,
         });
       }
-      // else if (response.error) {
-      //   toast.error(response.error, {
-      //     position: "top-right",
-      //     autoClose: 5000,
-      //     hideProgressBar: false,
-      //     closeOnClick: true,
-      //     pauseOnHover: true,
-      //     draggable: true,
-      //     progress: undefined,
-      //     theme: "light",
-      //     transition: Bounce,
-      //   });
-      // } else {
-      //   toast.error("Something Went wrong", {
-      //     position: "top-right",
-      //     autoClose: 5000,
-      //     hideProgressBar: false,
-      //     closeOnClick: true,
-      //     pauseOnHover: true,
-      //     draggable: true,
-      //     progress: undefined,
-      //     theme: "light",
-      //     transition: Bounce,
-      //   });
-      // }
     } catch (error) {
-      // console.log(error?.data?.message);
-      // console.log(error);
       const errorMessage = (error as any)?.data?.message || "An error occurred";
       toast.error(errorMessage, {
         position: "top-right",
