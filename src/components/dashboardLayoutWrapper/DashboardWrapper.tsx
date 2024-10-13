@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Sidebar from "../shared/Sidebar/Sidebar";
 import Navbar from "../shared/navBar/NavBar";
 import { Button } from "../ui/button";
@@ -13,11 +13,26 @@ const DashboardWrapper: React.FC<DashboardWrapperProps> = ({ children }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleSidebar = () => setIsOpen(!isOpen);
+
+  // .no-scroll {
+  //   overflow: hidden;
+  // }
+
+  // disable scrool on sidebar open
+
+  useEffect(() => {
+    if (isOpen) {
+      document.body.classList.add("no-scroll");
+    } else {
+      document.body.classList.remove("no-scroll");
+    }
+  }, [isOpen]);
+
   return (
     <>
       <div>
         <Navbar />
-        <div className="container mb-5">
+        <div className="container mb-5 px-5 xl:px-0">
           <Button
             onClick={toggleSidebar}
             className={` transition-all duration-300 ${
@@ -28,7 +43,7 @@ const DashboardWrapper: React.FC<DashboardWrapperProps> = ({ children }) => {
           </Button>
           <Sidebar isOpen={isOpen} toggleSidebar={toggleSidebar} />
         </div>
-        <div className="container">{children}</div>
+        <div className="container px-5 xl:px-0">{children}</div>
         {/* <Footer /> */}
       </div>
     </>
