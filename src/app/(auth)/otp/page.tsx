@@ -2,23 +2,23 @@
 
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
 import { useVerifyOtpMutation } from "@/redux/api/authApi";
-import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 export default function OTPVerification() {
   const [otp, setOtp] = useState("");
   const [varifyOtpFn, { isLoading }] = useVerifyOtpMutation();
+  const [identifier, setIdentifier] = useState<string | null>(null);
+  const router = useRouter();
   //  get "identifier" from the query params
-  const params = new URLSearchParams(window.location.search);
-  const identifier = params.get("identifier");
-
-  //   {
-  //     "success": true,
-  //     "message": "User logged in successfully",
-  //     "data": {
-  //         "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTUsImVtYWlsIjoibmFoaWRtYWhtdWRuMkBnbWFpbC5jb20iLCJyb2xlIjoiQ1VTVE9NRVIiLCJpYXQiOjE3Mjg3MjUyODcsImV4cCI6MTcyODgxMTY4N30.Xr1RhsCaAOalR1COoC2AyUdvrrQip4IM2EKteJBjKgA"
-  //     }
-  // }
+  useEffect(() => {
+    // This ensures that `window` is only accessed when rendering on the client side.
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      setIdentifier(params.get("identifier"));
+    }
+  }, []);
 
   const handleVerify = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -35,6 +35,7 @@ export default function OTPVerification() {
 
         // save token in local storage
         localStorage.setItem("accessToken", accessToken);
+        router.push("/open");
 
         // use get-me route to get user data
       }
