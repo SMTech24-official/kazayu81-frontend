@@ -4,8 +4,10 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const baseApi = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:5000/api/v1",
+    // baseUrl: "http://localhost:5000/api/v1",
     // baseUrl: "http://localhost:3000/api/v1",
+    baseUrl: "https://help-on-way-backend.vercel.app/api/v1",
+    
 
     prepareHeaders: (headers: Headers) => {
       const token = localStorage.getItem("token");
