@@ -5,7 +5,7 @@ import { cardData } from "@/data/openPageCardData";
 
 const OpenPage = () => {
   return (
-    <div className="grid grid-cols-6 gap-3">
+    <div className="grid grid-cols-6 gap-3 mx-auto max-w-screen">
       {cardData.map((card, index) => (
         <div key={index} className="col-span-2">
           <ServiceCardHelperUser

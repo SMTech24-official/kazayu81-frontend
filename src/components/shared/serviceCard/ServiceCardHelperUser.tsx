@@ -33,10 +33,10 @@ const ServiceCardHelperUser: React.FC<ServiceCardHelperUserProps> = ({
       </div>
       <div className="p-6">
         <h2 className="text-xl font-bold mb-2">{title}</h2>
-        <p className="text-sm text-gray-600 mb-1">
+        <p className="text-base text-black mb-1 font-bold">
           Service Type | <span className="text-orange-500">{serviceType}</span>
         </p>
-        <p className="text-sm text-gray-600 mb-4">
+        <p className="text-base text-black mb-1 font-bold">
           Help Location | <span className="text-orange-500">{location}</span>
         </p>
         <p className="text-gray-700 mb-4">{description}</p>
