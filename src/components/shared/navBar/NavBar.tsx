@@ -30,6 +30,8 @@ export default function Navbar() {
     dispatch(removeUser());
   };
 
+  console.log(user);
+
   return (
     <nav className="bg-orange-500 p-3">
       <div className="container mx-auto flex justify-between items-center">
@@ -82,7 +84,7 @@ export default function Navbar() {
                   <DropdownMenuLabel>
                     {user?.firstName} {` `} {user?.lastName}
                   </DropdownMenuLabel>
-                  <DropdownMenuLabel>{user?.id} #kfrkcfodf2589@ </DropdownMenuLabel>
+                  <DropdownMenuLabel>{user?.customerId} </DropdownMenuLabel>
                   <DropdownMenuLabel>{user?.role} </DropdownMenuLabel>
 
                   <DropdownMenuSeparator />
