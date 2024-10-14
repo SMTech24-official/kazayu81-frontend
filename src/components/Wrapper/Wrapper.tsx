@@ -23,7 +23,7 @@ const Wrapper: React.FC<WrapperProps> = ({ children }) => {
     const token = localStorage.getItem("accessToken");
     // console.log("Token:", token);
 
-    // If no token, remove the user from Redux and return early
+    // No token situaltion
     if (!token) {
       console.log("No token found, removing user");
       dispatch(removeUser());
@@ -43,15 +43,16 @@ const Wrapper: React.FC<WrapperProps> = ({ children }) => {
         });
 
         const result = await response.json();
-        console.log("API response:", result);
+        // console.log("API response:", result);
 
         if (result?.success) {
-          console.log("Setting user in Redux:", result.data);
+          // console.log("Setting user in Redux:", result.data);
 
           // Dispatch the user data to Redux
           dispatch(setUser(result.data));
         } else {
-          console.log("Failed to fetch user profile:", result.message);
+          // console.log("Failed to fetch user profile:", result.message);
+          toast.error("Failed to fetch user profile");
         }
       } catch (error) {
         console.error("Error fetching user profile:", error);

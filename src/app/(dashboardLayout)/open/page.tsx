@@ -4,6 +4,7 @@ import ServiceCardHelperUser from "@/components/shared/serviceCard/ServiceCardHe
 import { cardData } from "@/data/openPageCardData";
 
 const OpenPage = () => {
+  
   return (
     <div className="grid grid-cols-6 gap-3 mx-auto max-w-screen">
       {cardData.map((card, index) => (

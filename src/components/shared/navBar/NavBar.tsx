@@ -5,10 +5,50 @@ import { usePathname } from "next/navigation";
 // import logo
 import logo from "@/assets/images/whitelogo.png";
 import Image from "next/image";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuPortal,
+  DropdownMenuSeparator,
+  DropdownMenuShortcut,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import {
+  Cloud,
+  CreditCard,
+  Github,
+  Keyboard,
+  LifeBuoy,
+  LogOut,
+  Mail,
+  MessageSquare,
+  Plus,
+  PlusCircle,
+  Settings,
+  User,
+  UserPlus,
+  Users,
+} from "lucide-react";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { removeUser } from "@/redux/slice/usersSlice";
 
 export default function Navbar() {
+  const user = useSelector((state: RootState) => state.user.user);
+  const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);
   const currentRoute = usePathname();
+  const handleLogOut = () => {
+    localStorage.removeItem("accessToken");
+    dispatch(removeUser());
+  };
 
   return (
     <nav className="bg-orange-500 p-3">
@@ -39,14 +79,53 @@ export default function Navbar() {
               </span>
             </Link>
           </div>
-          <div className="flex gap-4 font-bold">
-            <Link href={"/helper-sign-up"}>
-              <button className="bg-white text-black px-4 py-3 rounded-md shadow">Become helper &rarr;</button>
-            </Link>
-            <Link href={"/user-sign-up"}>
-              <button className="border-2 border-white text-white px-4 py-[9px] rounded-md">Find helper</button>{" "}
-            </Link>
-          </div>
+          {/* if user is avilabe show dropdoen */}
+
+          {user && (
+            <div>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Avatar className="cursor-pointer">
+                    <AvatarImage src="https://github.com/shaddcn.png" alt="@shadcn" />
+                    <AvatarFallback>
+                      {
+                        // firstName
+                        // lastName
+                        // get first letter of first name and last name
+                        user?.firstName.charAt(0) + user?.lastName.charAt(0)
+                      }
+                      {/* CN */}
+                    </AvatarFallback>
+                  </Avatar>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="w-56">
+                  <DropdownMenuLabel>
+                    {user?.firstName} {` `} {user?.lastName}
+                  </DropdownMenuLabel>
+                  <DropdownMenuLabel>{user?.id} #kfrkcfodf2589@ </DropdownMenuLabel>
+                  <DropdownMenuLabel>{user?.role} </DropdownMenuLabel>
+
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem onClick={handleLogOut}>
+                    <LogOut className="mr-2 h-4 w-4" />
+                    <span>Log out</span>
+                    <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
+          )}
+
+          {!user && (
+            <div className="flex gap-4 font-bold">
+              <Link href={"/helper-sign-up"}>
+                <button className="bg-white text-black px-4 py-3 rounded-md shadow">Become helper &rarr;</button>
+              </Link>
+              <Link href={"/user-sign-up"}>
+                <button className="border-2 border-white text-white px-4 py-[9px] rounded-md">Find helper</button>{" "}
+              </Link>
+            </div>
+          )}
         </div>
 
         {/* Mobile Menu Button */}
@@ -91,6 +170,7 @@ export default function Navbar() {
             Contact Us
           </span>
         </Link>
+
         <div className="mt-4 flex flex-col sm:flex-row gap-4">
           <Link href="/helper-sign-up">
             <button className="bg-white text-black px-4 py-2 rounded-md shadow w-fit">Become helper &rarr;</button>
