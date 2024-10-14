@@ -10,35 +10,15 @@ import { RootState } from "@/redux/store";
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuPortal,
   DropdownMenuSeparator,
   DropdownMenuShortcut,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import {
-  Cloud,
-  CreditCard,
-  Github,
-  Keyboard,
-  LifeBuoy,
-  LogOut,
-  Mail,
-  MessageSquare,
-  Plus,
-  PlusCircle,
-  Settings,
-  User,
-  UserPlus,
-  Users,
-} from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { removeUser } from "@/redux/slice/usersSlice";
+import { LogOut } from "lucide-react";
 
 export default function Navbar() {
   const user = useSelector((state: RootState) => state.user.user);
@@ -106,7 +86,7 @@ export default function Navbar() {
                   <DropdownMenuLabel>{user?.role} </DropdownMenuLabel>
 
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem onClick={handleLogOut}>
+                  <DropdownMenuItem className="cursor-pointer" onClick={handleLogOut}>
                     <LogOut className="mr-2 h-4 w-4" />
                     <span>Log out</span>
                     <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
@@ -150,6 +130,20 @@ export default function Navbar() {
           isOpen ? "max-h-screen opacity-100" : "max-h-0 opacity-0 overflow-hidden"
         }`}
       >
+        {/* {user && (
+          <>
+            <p className="text-white">
+              {user?.firstName} {` `} {user?.lastName}{" "}
+            </p>
+            <p className="text-white">{user?.id} #kfrkcfodf2589@ </p>
+
+            <p className="text-white">{user?.email}</p>
+
+            <Button className="w-fit bg-white text-orange-500" onClick={handleLogOut}>
+              Logout
+            </Button>
+          </>
+        )} */}
         <Link href="/">
           <span className={`block text-white hover:text-gray-200 ${currentRoute === "#" ? "font-bold" : ""}`}>
             Home
@@ -171,15 +165,17 @@ export default function Navbar() {
           </span>
         </Link>
 
-        <div className="mt-4 flex flex-col sm:flex-row gap-4">
-          <Link href="/helper-sign-up">
-            <button className="bg-white text-black px-4 py-2 rounded-md shadow w-fit">Become helper &rarr;</button>
-          </Link>
-          <Link href={"/user-sign-up"}>
-            {" "}
-            <button className="border-2 border-white text-white px-4 py-2 rounded-md w-fit">Find helper</button>
-          </Link>
-        </div>
+        {!user && (
+          <div className="mt-4 flex flex-col sm:flex-row gap-4">
+            <Link href="/helper-sign-up">
+              <button className="bg-white text-black px-4 py-2 rounded-md shadow w-fit">Become helper &rarr;</button>
+            </Link>
+            <Link href={"/user-sign-up"}>
+              {" "}
+              <button className="border-2 border-white text-white px-4 py-2 rounded-md w-fit">Find helper</button>
+            </Link>
+          </div>
+        )}
       </div>
     </nav>
   );
