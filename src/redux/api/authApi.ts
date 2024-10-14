@@ -40,6 +40,19 @@ const authApi = baseApi.injectEndpoints({
       invalidatesTags: ["Auth"],
     }),
 
+    // social login
+
+    socialLogin: build.mutation({
+      query: (data: any) => {
+        return {
+          url: `/auth/social-login`,
+          method: "POST",
+          body: data,
+        };
+      },
+      invalidatesTags: ["Auth"],
+    }),
+
     // varify otp
 
     verifyOtp: build.mutation({
@@ -101,4 +114,5 @@ export const {
   useResetPasswordMutation,
   useCreateCustomerMutation,
   useVerifyOtpMutation,
+  useSocialLoginMutation,
 } = authApi;

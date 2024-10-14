@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 // import logo
 import logo from "@/assets/images/whitelogo.png";
 import Image from "next/image";
@@ -19,17 +19,29 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { removeUser } from "@/redux/slice/usersSlice";
 import { LogOut } from "lucide-react";
+import { signOut } from "next-auth/react";
 
 export default function Navbar() {
   const user = useSelector((state: RootState) => state.user.user);
+  const router = useRouter();
   const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);
   const currentRoute = usePathname();
   const handleLogOut = () => {
+    signOut();
     localStorage.removeItem("accessToken");
     dispatch(removeUser());
   };
 
+  //   <button
+  //   onClick={(e) => {
+  //     e.preventDefault();
+  //     signOut();
+  //     localStorage.removeItem("accessToken");
+  //   }}
+  // >
+  //   Log out
+  // </button>
   console.log(user);
 
   return (
@@ -37,7 +49,7 @@ export default function Navbar() {
       <div className="container mx-auto flex justify-between items-center">
         {/* Logo Section */}
 
-        <Image src={logo} alt="logo" className="h-12 w-24" />
+        <Image onClick={() => router.push("/")} src={logo} alt="logo" className="h-12 w-24" />
 
         {/* Desktop Menu */}
         <div className="hidden lg:flex gap-8 items-center justify-center">
