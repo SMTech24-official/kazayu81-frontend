@@ -24,7 +24,7 @@ const SectionTemplate: React.FC<SectionTemplateProps> = ({ reverse, title, descr
           <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">{title}</h1>
           <p className="text-gray-600 text-lg text-justify">{description}</p>
           {button && (
-            <Button className="bg-white text-black border border-gray-300 hover:bg-gray-100 transition-colors duration-200">
+            <Button className="bg-white text-black border py-8 px-5 rounded-2xl mt-9 text-lg border-gray-300 hover:bg-gray-100 transition-colors duration-200">
               Learn More
               <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
