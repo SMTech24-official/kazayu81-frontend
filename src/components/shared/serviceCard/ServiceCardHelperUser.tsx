@@ -80,9 +80,12 @@ const ServiceCardHelperUser: React.FC<ServiceCardHelperUserProps> = ({
                 </>
               )}
             </div>
-            <button className="bg-orange-500 text-white p-2 rounded-md">
-              <MessageCircle size={20} />
-            </button>
+
+            {user && (
+              <button className="bg-orange-500 text-white p-2 rounded-md">
+                <MessageCircle size={20} />
+              </button>
+            )}
           </div>
         </div>
       </div>

@@ -16,13 +16,14 @@ import {
   DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { removeUser } from "@/redux/slice/usersSlice";
 import { LogOut } from "lucide-react";
 import { signOut } from "next-auth/react";
 
 export default function Navbar() {
   const user = useSelector((state: RootState) => state.user.user);
+  console.log(user);
   const router = useRouter();
   const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);
@@ -49,7 +50,7 @@ export default function Navbar() {
       <div className="container mx-auto flex justify-between items-center">
         {/* Logo Section */}
 
-        <Image onClick={() => router.push("/")} src={logo} alt="logo" className="h-12 w-24" />
+        <Image onClick={() => router.push("/")} src={logo} alt="logo" className="h-12 w-24 cursor-pointer" />
 
         {/* Desktop Menu */}
         <div className="hidden lg:flex gap-8 items-center justify-center">
@@ -80,16 +81,24 @@ export default function Navbar() {
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Avatar className="cursor-pointer">
-                    <AvatarImage src="https://github.com/shaddcn.png" alt="@shadcn" />
-                    <AvatarFallback>
-                      {
-                        // firstName
-                        // lastName
-                        // get first letter of first name and last name
-                        user?.firstName.charAt(0) + user?.lastName.charAt(0)
-                      }
-                      {/* CN */}
-                    </AvatarFallback>
+                    {/* <AvatarImage src={user?.profileImage} alt="@shadcn" /> */}
+                    {
+                      // if user has profile image show it
+                      // else show first letter of first name and last name
+                      user?.profileImage ? (
+                        <Image src={user?.profileImage} alt="profile" height={50} width={50} />
+                      ) : (
+                        <AvatarFallback>
+                          {
+                            // firstName
+                            // lastName
+                            // get first letter of first name and last name
+                            user?.firstName.charAt(0) + user?.lastName.charAt(0)
+                          }
+                          {/* CN */}
+                        </AvatarFallback>
+                      )
+                    }
                   </Avatar>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent className="w-56">

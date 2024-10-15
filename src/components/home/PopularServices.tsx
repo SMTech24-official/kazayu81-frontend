@@ -3,6 +3,7 @@ import BoxImage from "@/assets/images/box-img.jpg";
 import Image from "next/image";
 import ServiceCard from "../shared/serviceCard/ServiceCard";
 import { services } from "@/data/servicesDtata";
+import Link from "next/link";
 // Import the new ServiceCard component
 
 const PopularServices = () => {
@@ -29,9 +30,11 @@ const PopularServices = () => {
             ))}
           </div>
           <div className="flex items-center justify-center mt-12">
-            <button className="text-white bg-orange-500 hover:bg-white hover:text-black hover:scale-110 transition-all duration-300 px-5 py-4 text-xl border border-white rounded-lg">
-              Explore Services
-            </button>
+            <Link href={"/help-services"}>
+              <button className="text-white bg-orange-500 hover:bg-white hover:text-black hover:scale-110 transition-all duration-300 px-5 py-4 text-xl border border-white rounded-lg">
+                Explore Services
+              </button>
+            </Link>
           </div>
         </div>
       </section>
