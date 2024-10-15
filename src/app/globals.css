@@ -18,6 +18,10 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+
+  .btn {
+    @apply text-base font-medium text-black
+  }
 }
 
 @layer base {
