@@ -15,7 +15,7 @@ export default function FAQAccordion({ FAQs, width, title = "Genaral" }: FAQAcco
     <div className=" mx-auto px-4 py-12">
       <div className={`mb-8 `}>
         <h2 className="text-4xl font-semibold  border-gray-200  w-full">{title}</h2>
-        <Image src={Underline} alt="underline" className={`h-full w-full ${width}`} width={300} height={5} />
+        <Image src={Underline} alt="underline" className={`h-full  ${width}`} width={300} height={5} />
       </div>
 
       <Accordion type="single" collapsible className="space-y-4">

@@ -1,9 +1,15 @@
-import React from 'react'
+import React from "react";
+import ServiceDetail from "@/components/shared/serviceDetail/ServiceDetail";
 
-const ServiceDetail = () => {
+const ServiceDetailPage = () => {
   return (
-    <div>ServiceDetail</div>
-  )
-}
+    <div>
+      {" "}
+      {/* Banner Section */}
+      <ServiceDetail />
+      {/* why choose us section */}
+    </div>
+  );
+};
 
-export default ServiceDetail
+export default ServiceDetailPage;
