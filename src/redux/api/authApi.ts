@@ -77,7 +77,7 @@ const authApi = baseApi.injectEndpoints({
     }),
     // reset password profile
     resetPassword: build.mutation({
-      query: (data: { token: string; newPassword: string }) => ({
+      query: (data: { id: number; password: string }) => ({
         url: `/auth/reset-password`,
         method: "POST",
         body: data,

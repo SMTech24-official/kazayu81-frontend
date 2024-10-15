@@ -13,7 +13,7 @@ export const baseApi = createApi({
     baseUrl: BASEAPI,
 
     prepareHeaders: (headers: Headers) => {
-      const token = localStorage.getItem("token");
+      const token = localStorage.getItem("accessToken");
       if (token) {
         headers.set("authorization", ` ${token}`);
       }

@@ -1,13 +1,28 @@
 "use client";
+import { useForgottenPasswordMutation } from "@/redux/api/authApi";
 import Link from "next/link";
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 export default function ForgotPassword() {
   const [email, setEmail] = useState("");
+  const [forgotPassFn, { isLoading }] = useForgottenPasswordMutation();
 
-  const handleReset = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleReset = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // Add your reset link logic here
+    // const forgotPassFn({ email });
+    try {
+      const res = await forgotPassFn({ email });
+      console.log(res);
+      if (res.data && res.data.success) {
+        toast.success("Reset link sent successfully. Please check your email.");
+      } else {
+        toast.error("Something went wrong. Please try again later.");
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -34,6 +49,7 @@ export default function ForgotPassword() {
           </div>
           <button
             type="submit"
+            disabled={isLoading}
             className="w-full py-2 px-4 bg-orange-500 text-white font-medium rounded-md hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2"
           >
             Send Reset Link
