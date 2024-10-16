@@ -4,7 +4,7 @@ import { MessageCircle } from "lucide-react";
 import Image, { StaticImageData } from "next/image";
 import { useSelector } from "react-redux";
 
-interface CompletedCardProps {
+interface InprogressCardProps {
   backgroundImage: StaticImageData;
   profileImage: StaticImageData;
   profileName: string;
@@ -15,7 +15,7 @@ interface CompletedCardProps {
   price: string;
 }
 
-const CompletedCard: React.FC<CompletedCardProps> = ({
+const InprogressCard: React.FC<InprogressCardProps> = ({
   backgroundImage,
   profileImage,
   profileName,
@@ -52,9 +52,9 @@ const CompletedCard: React.FC<CompletedCardProps> = ({
               description.length > 70 ? description.substring(0, 70) + "..." : description
             }
           </p>
-          <p className="text-base text-black mb-1 font-bold">
+          {/* <p className="text-base text-black mb-1 font-bold">
             Scheduled Date | <span className="text-orange-500 text-sm">July 10, 2024 - 4:00 pm EST</span>
-          </p>
+          </p> */}
 
           <p className="text-2xl text-end font-bold">{price}</p>
           <div className="flex  mt-2 justify-between items-start">
@@ -81,4 +81,4 @@ const CompletedCard: React.FC<CompletedCardProps> = ({
   );
 };
 
-export default CompletedCard;
+export default InprogressCard;

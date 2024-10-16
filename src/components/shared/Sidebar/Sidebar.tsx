@@ -46,6 +46,7 @@ export default function Sidebar({ isOpen, toggleSidebar }: { isOpen: boolean; to
               {
                 icon: <Clock className="mr-2 h-4 w-4" />,
                 label: "In-progress",
+                link: "/in-progress",
               },
               {
                 icon: <CheckCircle className="mr-2 h-4 w-4" />,
