@@ -24,7 +24,7 @@ import { Button } from "@/components/ui/button";
 
 export default function Navbar() {
   const user = useSelector((state: RootState) => state.user.user);
-  console.log(user);
+  // console.log(user);
   const router = useRouter();
   const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);
@@ -44,7 +44,7 @@ export default function Navbar() {
   // >
   //   Log out
   // </button>
-  console.log(user);
+  // console.log(user);
 
   return (
     <nav className="bg-orange-500 p-3">

@@ -64,7 +64,7 @@ const Wrapper: React.FC<WrapperProps> = ({ children }) => {
     if (!user) {
       fetchUserProfile(); // Only fetch if user is not set in Redux
     } else {
-      console.log("User already set in Redux:", user);
+      // console.log("User already set in Redux:", user);
     }
   }, [dispatch, user, pathName]);
 

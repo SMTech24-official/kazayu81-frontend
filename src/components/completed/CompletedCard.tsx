@@ -26,7 +26,7 @@ const CompletedCard: React.FC<CompletedCardProps> = ({
   price,
 }) => {
   const user = useSelector((state: RootState) => state.user.user);
-  console.log(user);
+  //   console.log(user);
 
   return (
     <div className="w-full max-w-sm bg-white shadow-lg rounded-lg overflow-hidden">

@@ -5,7 +5,7 @@ export const getUserInfo: any = () => {
 
   if (typeof window === "undefined") return null;
 
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem("accessToken");
   if (!token) return null;
   const user = jwtDecode(token);
   return user;
