@@ -1,30 +1,28 @@
 "use client";
-import React from "react";
-import ServiceCardHelperUser from "@/components/shared/serviceCard/ServiceCardHelperUser";
-import { cardData } from "@/data/openPageCardData";
-import MainIcon from "@/components/shared/mainIcon/MainIcon";
+import FreeVisitRequestCard from "@/components/freeVisitRequest/FreeVisitRequestCard";
 import CreateHelpOrderButton from "@/components/shared/createHelpOrderButton/CreateHelpOrderButton";
-import { useSelector } from "react-redux";
+import MainIcon from "@/components/shared/mainIcon/MainIcon";
+import { cardData } from "@/data/openPageCardData";
 import { RootState } from "@/redux/store";
+import { useSelector } from "react-redux";
 
-const OpenPage = () => {
+const FreePageVisit = () => {
   const user = useSelector((state: RootState) => state.user.user); // Get user from Redux (make sure to access .user)
-
   return (
     <div>
       <div className="flex items-center flex-col justify-center mb-20">
         <MainIcon />
-        <p className="font-bold text-2xl">Open</p>
+        <p className="font-bold text-2xl">In Progress</p>
       </div>
       {user?.role === "CUSTOMER" && (
         <div className="flex items-center justify-end mb-10 ">
           <CreateHelpOrderButton />
         </div>
       )}
-      <div className="grid grid-cols-6 gap-5 mx-auto max-w-screen">
+      <div className="grid grid-cols-6   gap-5 mx-auto max-w-screen">
         {cardData.map((card, index) => (
           <div key={index} className="md:col-span-3 lg:col-span-2 col-span-6 ">
-            <ServiceCardHelperUser
+            <FreeVisitRequestCard
               backgroundImage={card.backgroundImage}
               profileImage={card.profileImage}
               profileName={card.profileName}
@@ -41,4 +39,4 @@ const OpenPage = () => {
   );
 };
 
-export default OpenPage;
+export default FreePageVisit;

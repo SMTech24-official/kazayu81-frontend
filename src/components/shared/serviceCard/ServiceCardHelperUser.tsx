@@ -29,7 +29,7 @@ const ServiceCardHelperUser: React.FC<ServiceCardHelperUserProps> = ({
   console.log(user);
 
   return (
-    <div className="w-full max-w-sm bg-white shadow-lg rounded-lg overflow-hidden">
+    <div className="w-full  bg-white shadow-lg rounded-lg overflow-hidden">
       <div className="relative h-40 bg-gray-100">
         <Image src={backgroundImage} alt="Background" layout="fill" objectFit="cover" />
       </div>

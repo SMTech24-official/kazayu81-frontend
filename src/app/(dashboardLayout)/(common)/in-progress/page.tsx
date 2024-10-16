@@ -1,5 +1,5 @@
 "use client";
-import CompletedCard from "@/components/completed/CompletedCard";
+
 import InprogressCard from "@/components/inprogress/InprogressCard";
 import CreateHelpOrderButton from "@/components/shared/createHelpOrderButton/CreateHelpOrderButton";
 import MainIcon from "@/components/shared/mainIcon/MainIcon";
@@ -18,11 +18,11 @@ const InProgressPage = () => {
         <p className="font-bold text-2xl">In Progress</p>
       </div>
       {user?.role === "CUSTOMER" && (
-        <div className="flex items-center justify-end mb-10 mr-12">
+        <div className="flex items-center justify-end mb-10">
           <CreateHelpOrderButton />
         </div>
       )}
-      <div className="grid grid-cols-6 gap-3 mx-auto max-w-screen">
+      <div className="grid grid-cols-6 gap-5 mx-auto max-w-screen">
         {cardData.map((card, index) => (
           <div key={index} className="md:col-span-3 lg:col-span-2 col-span-6 ">
             <InprogressCard

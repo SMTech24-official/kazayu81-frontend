@@ -21,6 +21,7 @@ const config: Config = {
       container: {
         center: true,
         screens: {
+          DEFAULT: "1450px",
           sm: "100%",
           md: "100%",
           lg: "1200px",

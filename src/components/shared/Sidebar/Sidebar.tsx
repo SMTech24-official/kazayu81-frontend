@@ -42,6 +42,7 @@ export default function Sidebar({ isOpen, toggleSidebar }: { isOpen: boolean; to
               {
                 icon: <Gift className="mr-2 h-4 w-4" />,
                 label: "Free Visit Requests!",
+                link: "/free-visit-requests",
               },
               {
                 icon: <Clock className="mr-2 h-4 w-4" />,

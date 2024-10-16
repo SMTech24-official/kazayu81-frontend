@@ -1,10 +1,10 @@
 "use client";
 import { RootState } from "@/redux/store";
-import { MessageCircle } from "lucide-react";
+import { MessageCircle, Star } from "lucide-react";
 import Image, { StaticImageData } from "next/image";
 import { useSelector } from "react-redux";
 
-interface InprogressCardProps {
+interface FreeVisitRequestCardProps {
   backgroundImage: StaticImageData;
   profileImage: StaticImageData;
   profileName: string;
@@ -15,7 +15,7 @@ interface InprogressCardProps {
   price: string;
 }
 
-const InprogressCard: React.FC<InprogressCardProps> = ({
+const FreeVisitRequestCard: React.FC<FreeVisitRequestCardProps> = ({
   backgroundImage,
   profileImage,
   profileName,
@@ -29,7 +29,7 @@ const InprogressCard: React.FC<InprogressCardProps> = ({
   //   console.log(user);
 
   return (
-    <div className="w-full  bg-white shadow-lg rounded-lg overflow-hidden">
+    <div className="w-full bg-white shadow-lg rounded-lg overflow-hidden">
       <div className="relative h-40 bg-gray-100">
         <Image src={backgroundImage} alt="Background" layout="fill" objectFit="cover" />
       </div>
@@ -56,23 +56,47 @@ const InprogressCard: React.FC<InprogressCardProps> = ({
             Scheduled Date | <span className="text-orange-500 text-sm">July 10, 2024 - 4:00 pm EST</span>
           </p> */}
 
-          <p className="text-2xl text-end font-bold">{price}</p>
+          <div className="bg-white p-4 rounded-lg shadow-md max-w-xs">
+            <h2 className="text-lg font-semibold text-gray-700 mb-3">Requested By</h2>
+            <div className="flex items-center">
+              <div className="relative w-12 h-12 mr-3">
+                <Image src={profileImage} alt="Zulqarnain's profile picture" layout="fill" className="rounded-full" />
+              </div>
+              <div>
+                <p className="font-medium text-gray-800">Zulqarnain</p>
+                <div className="flex items-center">
+                  <Star className="w-4 h-4 text-yellow-400 fill-current" />
+                  <span className="ml-1 text-sm text-gray-600">4.5</span>
+                </div>
+              </div>
+            </div>
+          </div>
           <div className="flex  mt-2 justify-between items-start">
             <div className="flex flex-wrap gap-1">
               {
                 // Conditional rendering based on user role
                 // HELPER
                 user && (
-                  <button className="mr-2 px-4 py-2 border border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white transition-all duration-300  text-sm font-semibold">
-                    View details
-                  </button>
+                  <div>
+                    <button className="mr-2 px-4 py-2 border border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white transition-all duration-300  text-sm font-semibold">
+                      Accept
+                    </button>
+                    <button className="mr-2 px-4 py-2 border border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white transition-all duration-300  text-sm font-semibold">
+                      Reject
+                    </button>
+                  </div>
                 )
               }
             </div>
             {user && (
-              <button className="bg-orange-500 text-white p-2 rounded-md">
-                <MessageCircle size={20} />
-              </button>
+              <div className="flex">
+                <button className="mr-2 px-4 py-2 border border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white transition-all duration-300  text-sm font-semibold">
+                  View Details
+                </button>
+                <button className="bg-orange-500 text-white p-2 rounded-md">
+                  <MessageCircle size={20} />
+                </button>
+              </div>
             )}
           </div>
         </div>
@@ -81,4 +105,4 @@ const InprogressCard: React.FC<InprogressCardProps> = ({
   );
 };
 
-export default InprogressCard;
+export default FreeVisitRequestCard;
