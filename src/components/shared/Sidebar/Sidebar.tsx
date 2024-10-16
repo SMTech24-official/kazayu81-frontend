@@ -50,6 +50,7 @@ export default function Sidebar({ isOpen, toggleSidebar }: { isOpen: boolean; to
               {
                 icon: <CheckCircle className="mr-2 h-4 w-4" />,
                 label: "Completed",
+                link: "/completed",
               },
               { icon: <User className="mr-2 h-4 w-4" />, label: "Account" },
               {

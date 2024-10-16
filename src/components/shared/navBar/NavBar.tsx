@@ -20,6 +20,7 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { removeUser } from "@/redux/slice/usersSlice";
 import { LogOut } from "lucide-react";
 import { signOut } from "next-auth/react";
+import { Button } from "@/components/ui/button";
 
 export default function Navbar() {
   const user = useSelector((state: RootState) => state.user.user);
@@ -107,6 +108,11 @@ export default function Navbar() {
                   </DropdownMenuLabel>
                   <DropdownMenuLabel>{user?.customerId} </DropdownMenuLabel>
                   <DropdownMenuLabel>{user?.role} </DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+
+                  <DropdownMenuItem className="cursor-pointer" onClick={() => router.push("/open")}>
+                    Dashboard
+                  </DropdownMenuItem>
 
                   <DropdownMenuSeparator />
                   <DropdownMenuItem className="cursor-pointer" onClick={handleLogOut}>
@@ -153,20 +159,6 @@ export default function Navbar() {
           isOpen ? "max-h-screen opacity-100" : "max-h-0 opacity-0 overflow-hidden"
         }`}
       >
-        {/* {user && (
-          <>
-            <p className="text-white">
-              {user?.firstName} {` `} {user?.lastName}{" "}
-            </p>
-            <p className="text-white">{user?.id} #kfrkcfodf2589@ </p>
-
-            <p className="text-white">{user?.email}</p>
-
-            <Button className="w-fit bg-white text-orange-500" onClick={handleLogOut}>
-              Logout
-            </Button>
-          </>
-        )} */}
         <Link href="/">
           <span className={`block text-white hover:text-gray-200 ${currentRoute === "#" ? "font-bold" : ""}`}>
             Home
@@ -198,6 +190,26 @@ export default function Navbar() {
               <button className="border-2 border-white text-white px-4 py-2 rounded-md w-fit">Find helper</button>
             </Link>
           </div>
+        )}
+
+        {user && (
+          <>
+            <p className="text-white">
+              {user?.firstName} {` `} {user?.lastName}{" "}
+            </p>
+            {/* <p className="text-white">{user?.id} #kfrkcfodf2589@ </p> */}
+
+            <p className="text-white">{user?.email}</p>
+
+            <Link className="bg-white text-black px-4 py-2 rounded-md shadow w-fit" href="/open">
+              {" "}
+              Dashboard{" "}
+            </Link>
+
+            <Button className="w-fit bg-white text-orange-500" onClick={handleLogOut}>
+              Logout
+            </Button>
+          </>
         )}
       </div>
     </nav>
