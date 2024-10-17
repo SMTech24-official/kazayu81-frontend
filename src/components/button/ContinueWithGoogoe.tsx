@@ -45,7 +45,7 @@ const ContinueWithGoogoe = () => {
 
       socialLoginFn({
         email: email,
-        firstName: firstName,
+      firstName: firstName,
         lastName: lastName,
         profileImage: image,
       });
@@ -60,7 +60,9 @@ const ContinueWithGoogoe = () => {
       localStorage.setItem("accessToken", userData?.data?.accessToken);
       const loadingFn = async () => {
         try {
-          await toast.success("Login success");
+          await toast.success("Login success", {
+            position: "bottom-right",
+          });
         } catch (e) {
           console.log(e);
         } finally {

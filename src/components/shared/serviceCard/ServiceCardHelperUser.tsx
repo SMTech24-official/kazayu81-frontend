@@ -26,7 +26,7 @@ const ServiceCardHelperUser: React.FC<ServiceCardHelperUserProps> = ({
   price,
 }) => {
   const user = useSelector((state: RootState) => state.user.user);
-  console.log(user);
+  // console.log(user);
 
   return (
     <div className="w-full  bg-white shadow-lg rounded-lg overflow-hidden">

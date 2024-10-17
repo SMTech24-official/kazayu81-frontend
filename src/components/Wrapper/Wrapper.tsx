@@ -14,24 +14,21 @@ interface WrapperProps {
 const BASEAPI = process.env.NEXT_PUBLIC_BASEURL;
 
 const Wrapper: React.FC<WrapperProps> = ({ children }) => {
-  const user = useSelector((state: RootState) => state.user.user); // Get user from Redux (make sure to access .user)
+  const [loading, setLoading] = useState<boolean>(false);
+  const user = useSelector((state: RootState) => state.user.user);
   const dispatch = useDispatch();
   const pathName = usePathname();
-  const [loading, setLoading] = useState(false);
+  const toastId = React.useRef<string | number | null>(null);
 
   useEffect(() => {
-    // Check if token exists in localStorage
     const token = localStorage.getItem("accessToken");
-    // console.log("Token:", token);
 
-    // No token situaltion
     if (!token) {
       console.log("No token found, removing user");
       dispatch(removeUser());
       return;
     }
 
-    // Fetch user profile if user is not set in Redux
     const fetchUserProfile = async () => {
       try {
         setLoading(true);
@@ -40,21 +37,15 @@ const Wrapper: React.FC<WrapperProps> = ({ children }) => {
         const response = await fetch(`${BASEAPI}/auth/get-me`, {
           method: "GET",
           headers: {
-            authorization: `${token}`, // Use Bearer token format
+            authorization: `${token}`,
           },
         });
 
         const result = await response.json();
-        // console.log("API response:", result);
 
         if (result?.success) {
-          // console.log("Setting user in Redux:", result.data);
-
-          // Dispatch the user data to Redux
           dispatch(setUser(result.data));
-          setLoading(false);
         } else {
-          // console.log("Failed to fetch user profile:", result.message);
           toast.error("Failed to fetch user profile");
         }
       } catch (error) {
@@ -67,25 +58,24 @@ const Wrapper: React.FC<WrapperProps> = ({ children }) => {
     };
 
     if (!user) {
-      fetchUserProfile(); // Only fetch if user is not set in Redux
-    } else {
-      // console.log("User already set in Redux:", user);
+      fetchUserProfile();
     }
   }, [dispatch, user, pathName]);
 
-  if (loading) {
-    // return <div>Loading...</div>;
-    // toast.info("Loading user profile..."); want this toast in bottom right corner
-    toast.info("Loading user profile...", {
-      position: "bottom-right",
-    });
-  }
-
-  // if loading false imidiately close the toast
-  if (!loading) {
-    toast.dismiss();
-  }
-
+  useEffect(() => {
+    if (loading) {
+      if (!toastId.current) {
+        toastId.current = toast.info("Loading user profile...", {
+          position: "bottom-right",
+        });
+      }
+    } else {
+      if (toastId.current) {
+        toast.dismiss(toastId.current);
+        toastId.current = null;
+      }
+    }
+  }, [loading]);
   return <SessionProvider>{children}</SessionProvider>;
 };
 

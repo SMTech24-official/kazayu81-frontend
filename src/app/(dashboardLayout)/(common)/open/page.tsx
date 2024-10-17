@@ -12,7 +12,7 @@ const OpenPage = () => {
 
   return (
     <div>
-      <div className="flex items-center flex-col justify-center mb-20">
+      <div className="flex items-center flex-col justify-center mb-10">
         <MainIcon />
         <p className="font-bold text-2xl">Open</p>
       </div>

@@ -30,25 +30,19 @@ export default function Navbar() {
   const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);
   const currentRoute = usePathname();
-  const handleLogOut = () => {
-    signOut();
+  const handleLogOut = async () => {
+    // e.preventDefault();
+    await signOut({ redirect: false });
     localStorage.removeItem("accessToken");
     dispatch(removeUser());
+    console.log("logout");
     toast.success("Logged out successfully", {
       position: "bottom-right",
     });
+    router.push("/");
   };
 
-  //   <button
-  //   onClick={(e) => {
-  //     e.preventDefault();
-  //     signOut();
-  //     localStorage.removeItem("accessToken");
-  //   }}
-  // >
-  //   Log out
-  // </button>
-  // console.log(user);
+  const DashboardLink = user?.role === "HELPER" ? "/open" : "/dashboard";
 
   return (
     <nav className="bg-orange-500 p-3">
@@ -114,7 +108,7 @@ export default function Navbar() {
                   <DropdownMenuLabel>{user?.role} </DropdownMenuLabel>
                   <DropdownMenuSeparator />
 
-                  <DropdownMenuItem className="cursor-pointer" onClick={() => router.push("/open")}>
+                  <DropdownMenuItem className="cursor-pointer" onClick={() => router.push(DashboardLink)}>
                     Dashboard
                   </DropdownMenuItem>
 

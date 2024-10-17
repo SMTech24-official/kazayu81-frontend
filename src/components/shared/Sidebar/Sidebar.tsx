@@ -54,7 +54,7 @@ export default function Sidebar({ isOpen, toggleSidebar }: { isOpen: boolean; to
                 label: "Completed",
                 link: "/completed",
               },
-              { icon: <User className="mr-2 h-4 w-4" />, label: "Account" },
+              { icon: <User className="mr-2 h-4 w-4" />, label: "Account", link: "#" },
               {
                 icon: <DollarSign className="mr-2 h-4 w-4" />,
                 label: "Earnings",
