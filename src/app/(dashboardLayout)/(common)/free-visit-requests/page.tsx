@@ -10,9 +10,9 @@ const FreePageVisit = () => {
   const user = useSelector((state: RootState) => state.user.user); // Get user from Redux (make sure to access .user)
   return (
     <div>
-      <div className="flex items-center flex-col justify-center mb-20">
+      <div className="flex items-center flex-col justify-center mb-10">
         <MainIcon />
-        <p className="font-bold text-2xl">In Progress</p>
+        <p className="font-bold text-2xl">Free Visit Requests!</p>
       </div>
       {user?.role === "CUSTOMER" && (
         <div className="flex items-center justify-end mb-10 ">

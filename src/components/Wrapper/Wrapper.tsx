@@ -3,7 +3,7 @@ import { removeUser, setUser } from "@/redux/slice/usersSlice";
 import { RootState } from "@/redux/store";
 import { SessionProvider } from "next-auth/react";
 import { usePathname } from "next/navigation";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
@@ -17,6 +17,7 @@ const Wrapper: React.FC<WrapperProps> = ({ children }) => {
   const user = useSelector((state: RootState) => state.user.user); // Get user from Redux (make sure to access .user)
   const dispatch = useDispatch();
   const pathName = usePathname();
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     // Check if token exists in localStorage
@@ -33,6 +34,7 @@ const Wrapper: React.FC<WrapperProps> = ({ children }) => {
     // Fetch user profile if user is not set in Redux
     const fetchUserProfile = async () => {
       try {
+        setLoading(true);
         console.log("Fetching user profile...");
 
         const response = await fetch(`${BASEAPI}/auth/get-me`, {
@@ -50,6 +52,7 @@ const Wrapper: React.FC<WrapperProps> = ({ children }) => {
 
           // Dispatch the user data to Redux
           dispatch(setUser(result.data));
+          setLoading(false);
         } else {
           // console.log("Failed to fetch user profile:", result.message);
           toast.error("Failed to fetch user profile");
@@ -58,6 +61,8 @@ const Wrapper: React.FC<WrapperProps> = ({ children }) => {
         console.error("Error fetching user profile:", error);
         toast.error("Error fetching user profile");
         dispatch(removeUser());
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -67,6 +72,19 @@ const Wrapper: React.FC<WrapperProps> = ({ children }) => {
       // console.log("User already set in Redux:", user);
     }
   }, [dispatch, user, pathName]);
+
+  if (loading) {
+    // return <div>Loading...</div>;
+    // toast.info("Loading user profile..."); want this toast in bottom right corner
+    toast.info("Loading user profile...", {
+      position: "bottom-right",
+    });
+  }
+
+  // if loading false imidiately close the toast
+  if (!loading) {
+    toast.dismiss();
+  }
 
   return <SessionProvider>{children}</SessionProvider>;
 };

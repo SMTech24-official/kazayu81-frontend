@@ -58,8 +58,16 @@ const ContinueWithGoogoe = () => {
     if (userData) {
       console.log("User form post to db", userData?.data);
       localStorage.setItem("accessToken", userData?.data?.accessToken);
-      toast.success("Login success");
-      router.push("/open");
+      const loadingFn = async () => {
+        try {
+          await toast.success("Login success");
+        } catch (e) {
+          console.log(e);
+        } finally {
+          router.push("/open");
+        }
+      };
+      loadingFn();
     }
   }, [userData, router]);
 

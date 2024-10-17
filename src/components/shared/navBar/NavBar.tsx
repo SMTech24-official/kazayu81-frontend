@@ -21,6 +21,7 @@ import { removeUser } from "@/redux/slice/usersSlice";
 import { LogOut } from "lucide-react";
 import { signOut } from "next-auth/react";
 import { Button } from "@/components/ui/button";
+import { toast } from "react-toastify";
 
 export default function Navbar() {
   const user = useSelector((state: RootState) => state.user.user);
@@ -33,6 +34,9 @@ export default function Navbar() {
     signOut();
     localStorage.removeItem("accessToken");
     dispatch(removeUser());
+    toast.success("Logged out successfully", {
+      position: "bottom-right",
+    });
   };
 
   //   <button
