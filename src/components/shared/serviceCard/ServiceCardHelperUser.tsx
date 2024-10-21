@@ -1,58 +1,65 @@
 "use client";
+import orderBg from "@/assets/images/orderbg.jpg";
+import profile from "@/assets/images/profile.jpg";
 import { RootState } from "@/redux/store";
+import { IOrder } from "@/types/helpOrder";
 import { MessageCircle } from "lucide-react";
-import Image, { StaticImageData } from "next/image";
+import Image from "next/image";
 import { useSelector } from "react-redux";
 
 interface ServiceCardHelperUserProps {
-  backgroundImage: StaticImageData;
-  profileImage: StaticImageData;
-  profileName: string;
-  title: string;
-  serviceType: string;
-  location: string;
-  description: string;
-  price: string;
+  order: IOrder;
 }
 
 const ServiceCardHelperUser: React.FC<ServiceCardHelperUserProps> = ({
-  backgroundImage,
-  profileImage,
-  profileName,
-  title,
-  serviceType,
-  location,
-  description,
-  price,
+  order,
 }) => {
   const user = useSelector((state: RootState) => state.user.user);
-  // console.log(user);
+  console.log(
+    `${process.env.NEXT_PUBLIC_API_IMAGE_URL}/${order.customer.user.profileImage}`
+  );
 
   return (
     <div className="w-full  bg-white shadow-lg rounded-lg overflow-hidden">
       <div className="relative h-40 bg-gray-100">
-        <Image src={backgroundImage} alt="Background" layout="fill" objectFit="cover" />
+        <Image src={orderBg} alt="Background" layout="fill" objectFit="cover" />
       </div>
       <div>
         <div className="bg-orange-500 p-4 flex items-center">
-          <Image src={profileImage} alt={profileName} width={48} height={48} className="rounded-full mr-3" />
-          <span className="text-white text-lg font-semibold">{profileName}</span>
+          <Image
+            src={
+              order?.customer?.user?.profileImage
+                ? order?.customer?.user?.profileImage
+                : profile
+            }
+            alt={order?.customer?.user?.firstName || "Profile Image"}
+            width={48}
+            height={48}
+            className="rounded-full mr-3"
+          />
+          <span className="text-white text-lg font-semibold">
+            {order?.customer?.user?.firstName} {order?.customer?.user?.lastName}
+          </span>
         </div>
         <div className="p-6">
-          <h2 className="text-xl font-bold mb-2">{title}</h2>
+          <h2 className="text-xl font-bold mb-2">{order?.subject}</h2>
           <p className="text-base text-black mb-1 font-bold">
-            Service Type | <span className="text-orange-500">{serviceType}</span>
+            Service Type |{" "}
+            <span className="text-orange-500">{order?.serviceType}</span>
           </p>
           <p className="text-base text-black mb-1 font-bold">
-            Help Location | <span className="text-orange-500">{location}</span>
+            Help Location |{" "}
+            <span className="text-orange-500">{order?.serviceLocation}</span>
           </p>
           <p className="text-gray-700 mb-4">
             {
               // description will be truncated to 100 characters
-              description.length > 70 ? description.substring(0, 70) + "..." : description
+              order?.description.length > 70
+                ? order?.description.substring(0, 70) + "..."
+                : order?.description
             }
           </p>
-          <p className="text-2xl text-end font-bold">{price}</p>
+          <p className="text-2xl text-end font-bold">{order?.totalCost}</p>
 
           <div className="flex  mt-2 justify-between items-start">
             <div className="flex flex-wrap gap-1">
