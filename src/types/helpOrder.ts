@@ -1,22 +1,5 @@
-enum TimeUnit {
-  hours,
-  days,
-  weeks,
-  months,
-  years,
-}
-
-enum ServiceOption {
-  MATERIAL_INCLUDED,
-  ONLY_LABOR,
-}
-
-enum OrderStatus {
-  OPEN,
-  IN_PROGRESS,
-  COMPLETED,
-  CANCELLED,
-}
+import { IBudget } from "./budget";
+import { OrderStatus, ServiceOption, TimeUnit } from "./common";
 
 export interface IOrder {
   id: number;
@@ -33,9 +16,12 @@ export interface IOrder {
   otherService?: string;
   serviceOption: ServiceOption;
   isPublished?: boolean;
-  //   budget: Budget[];
+  budget: IBudget[];
   totalCost: number;
   status: OrderStatus;
   customerId: number;
   helperId?: number;
+
+  createdAt: Date;
+  updatedAt: Date;
 }
