@@ -3,9 +3,9 @@ import { baseApi } from "./baseApi";
 const contactUsApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
     // get all pet
-    sendEmail: build.mutation({
+    contactUs: build.mutation({
       query: (data) => ({
-        url: `contact-us`,
+        url: `contactus/send-email`,
         method: "POST",
         body: data,
       }),
@@ -13,4 +13,4 @@ const contactUsApi = baseApi.injectEndpoints({
   }),
 });
 
-export const {useSendEmailMutation} = contactUsApi;
+export const { useContactUsMutation } = contactUsApi;

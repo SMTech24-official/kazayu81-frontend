@@ -60,7 +60,7 @@ export default function UpdateHelperProfile() {
   const [showLicenseUpload, setShowLicenseUpload] = useState(!defaultValues.isLicensed);
   const [showInsuranceUpload, setShowInsuranceUpload] = useState(!defaultValues.isInsured);
   const user = useSelector((state: RootState) => state.user.user);
-  const [userData, setserData] = useState({});
+  // const [userData, setserData] = useState({});
 
   console.log(user);
 
