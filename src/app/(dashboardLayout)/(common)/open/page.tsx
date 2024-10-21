@@ -1,14 +1,22 @@
 "use client";
-import React from "react";
+import CreateHelpOrderButton from "@/components/shared/createHelpOrderButton/CreateHelpOrderButton";
+import MainIcon from "@/components/shared/mainIcon/MainIcon";
 import ServiceCardHelperUser from "@/components/shared/serviceCard/ServiceCardHelperUser";
 import { cardData } from "@/data/openPageCardData";
-import MainIcon from "@/components/shared/mainIcon/MainIcon";
-import CreateHelpOrderButton from "@/components/shared/createHelpOrderButton/CreateHelpOrderButton";
-import { useSelector } from "react-redux";
+import { useGetOrdersQuery } from "@/redux/api/orderApi";
 import { RootState } from "@/redux/store";
+import React from "react";
+import { useSelector } from "react-redux";
 
 const OpenPage = () => {
   const user = useSelector((state: RootState) => state.user.user); // Get user from Redux (make sure to access .user)
+
+  const { data } = useGetOrdersQuery({});
+  const orderData = data?.data;
+  // const orderMeta = data?.meta;
+
+  const openOrders = orderData?.filter((order: any) => order.status === "OPEN");
+  console.log(openOrders);
 
   return (
     <div>
