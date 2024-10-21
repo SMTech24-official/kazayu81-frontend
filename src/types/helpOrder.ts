@@ -21,6 +21,7 @@ export interface IOrder {
   status: OrderStatus;
   customerId: number;
   helperId?: number;
+  customer: any;
 
   createdAt: Date;
   updatedAt: Date;

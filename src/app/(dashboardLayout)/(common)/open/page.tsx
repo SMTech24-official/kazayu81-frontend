@@ -2,9 +2,9 @@
 import CreateHelpOrderButton from "@/components/shared/createHelpOrderButton/CreateHelpOrderButton";
 import MainIcon from "@/components/shared/mainIcon/MainIcon";
 import ServiceCardHelperUser from "@/components/shared/serviceCard/ServiceCardHelperUser";
-import { cardData } from "@/data/openPageCardData";
 import { useGetOrdersQuery } from "@/redux/api/orderApi";
 import { RootState } from "@/redux/store";
+import { IOrder } from "@/types/helpOrder";
 import React from "react";
 import { useSelector } from "react-redux";
 
@@ -30,18 +30,12 @@ const OpenPage = () => {
         </div>
       )}
       <div className="grid grid-cols-6 gap-5 mx-auto max-w-screen">
-        {cardData.map((card, index) => (
-          <div key={index} className="md:col-span-3 lg:col-span-2 col-span-6 ">
-            <ServiceCardHelperUser
-              backgroundImage={card.backgroundImage}
-              profileImage={card.profileImage}
-              profileName={card.profileName}
-              title={card.title}
-              serviceType={card.serviceType}
-              location={card.location}
-              description={card.description}
-              price={card.price}
-            />
+        {openOrders?.map((order: IOrder) => (
+          <div
+            key={order?.id}
+            className="md:col-span-3 lg:col-span-2 col-span-6 "
+          >
+            <ServiceCardHelperUser order={order} />
           </div>
         ))}
       </div>
