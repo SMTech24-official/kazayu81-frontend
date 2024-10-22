@@ -1,6 +1,6 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { X, Package, Gift, Clock, CheckCircle, User, DollarSign, Settings } from "lucide-react";
+import { X, Package, Gift, Clock, CheckCircle, User, DollarSign, Settings, BookAIcon } from "lucide-react";
 import profileImage from "@/assets/images/profile.jpg";
 import Image from "next/image";
 import Link from "next/link";
@@ -48,6 +48,11 @@ export default function Sidebar({ isOpen, toggleSidebar }: { isOpen: boolean; to
                 icon: <Clock className="mr-2 h-4 w-4" />,
                 label: "In-progress",
                 link: "/in-progress",
+              },
+              {
+                icon: <BookAIcon className="mr-2 h-4 w-4" />,
+                label: "Saved",
+                link: "/saved",
               },
               {
                 icon: <CheckCircle className="mr-2 h-4 w-4" />,
