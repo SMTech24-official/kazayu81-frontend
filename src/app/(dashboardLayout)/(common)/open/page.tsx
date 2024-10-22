@@ -15,7 +15,9 @@ const OpenPage = () => {
   const orderData = data?.data;
   // const orderMeta = data?.meta;
 
-  const openOrders = orderData?.filter((order: any) => order.status === "OPEN");
+  const openOrders = orderData?.filter(
+    (order: any) => order.status === "OPEN" && order?.isPublished
+  );
   console.log(openOrders);
 
   return (
