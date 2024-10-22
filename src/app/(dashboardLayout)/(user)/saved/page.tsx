@@ -1,16 +1,11 @@
 "use client";
 import SavedPageCard from "@/components/saved/SavedPageCard";
-import CreateHelpOrderButton from "@/components/shared/createHelpOrderButton/CreateHelpOrderButton";
 import MainIcon from "@/components/shared/mainIcon/MainIcon";
 import { useGetOrdersQuery } from "@/redux/api/orderApi";
-import { RootState } from "@/redux/store";
 import { IOrder } from "@/types/helpOrder";
 import React from "react";
-import { useSelector } from "react-redux";
 
 const SavedPage = () => {
-  const user = useSelector((state: RootState) => state.user.user); // Get user from Redux (make sure to access .user)
-
   const { data } = useGetOrdersQuery({});
   const orderData = data?.data;
   // const orderMeta = data?.meta;
