@@ -38,7 +38,7 @@ const ServiceCardHelperUser: React.FC<ServiceCardHelperUserProps> = ({
             className="rounded-full mr-3"
           />
           <span className="text-white text-lg font-semibold">
-            {order?.customer?.user?.firstName} {order?.customer?.user?.lastName}
+            {order?.customer?.firstName} {order?.customer?.lastName}
           </span>
         </div>
         <div className="p-6">
