@@ -15,15 +15,18 @@ const ServiceCardHelperUser: React.FC<ServiceCardHelperUserProps> = ({
   order,
 }) => {
   const user = useSelector((state: RootState) => state.user.user);
-  console.log(
-    `${process.env.NEXT_PUBLIC_API_IMAGE_URL}/${order.customer.user.profileImage}`
-  );
+
+  console.log(user);
 
   return (
     <div className="w-full  bg-white shadow-lg rounded-lg overflow-hidden">
       <div className="relative h-40 bg-gray-100">
         <Image src={orderBg} alt="Background" layout="fill" objectFit="cover" />
+        <p className="absolute bg-white top-3 left-5 p-1 text-xs font-bold rounded-md">
+          {user?.customerId}
+        </p>
       </div>
+
       <div>
         <div className="bg-orange-500 p-4 flex items-center">
           <Image
