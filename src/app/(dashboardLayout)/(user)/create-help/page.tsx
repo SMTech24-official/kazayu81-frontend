@@ -13,10 +13,13 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import { useCreateOrderMutation } from "@/redux/api/orderApi";
+import { RootState } from "@/redux/store";
 import { ServiceOption, TimeUnit } from "@/types/common";
 import Image from "next/image";
 import { useState } from "react";
 import { Controller, useFieldArray, useForm } from "react-hook-form";
+import { useSelector } from "react-redux";
 
 type FormData = {
   subject: string;
@@ -30,14 +33,20 @@ type FormData = {
   otherService?: string;
   serviceOption: ServiceOption;
   budget: { stepDescription: string; stepCost: number }[];
+  isPublished: boolean;
 };
 
-export default function Component() {
+export default function CreateHelpOrder() {
+  const [createOrder, { isLoading }] = useCreateOrderMutation();
+
   const [isOtherService, setIsOtherService] = useState(false);
 
-  const { register, control, handleSubmit } = useForm<FormData>({
+  const user = useSelector((state: RootState) => state.user.user);
+
+  const { register, control, handleSubmit, setValue } = useForm<FormData>({
     defaultValues: {
       budget: [{ stepDescription: "", stepCost: 0 }],
+      isPublished: false,
     },
   });
 
@@ -46,8 +55,21 @@ export default function Component() {
     name: "budget",
   });
 
-  const onSubmit = (data: FormData) => {
-    console.log(data);
+  const onSubmit = async (data: FormData) => {
+    // Ensure customerId is included and log data
+    const formattedData = {
+      ...data,
+      customerId: user.id,
+    };
+
+    console.log("Submitting Data: ", formattedData);
+
+    try {
+      const res = await createOrder(formattedData).unwrap();
+      console.log("Order created successfully:", res);
+    } catch (error) {
+      console.error("Error creating order:", error);
+    }
   };
 
   const otherServiceHandler = (value: string) => {
@@ -56,6 +78,11 @@ export default function Component() {
     } else {
       setIsOtherService(false);
     }
+  };
+
+  const handleSubmitWithPublishedStatus = (isPublishedStatus: boolean) => {
+    setValue("isPublished", isPublishedStatus);
+    handleSubmit(onSubmit)(); // Ensure form is submitted correctly
   };
 
   return (
@@ -279,16 +306,18 @@ export default function Component() {
         <Button
           size={"lg"}
           variant={"outline"}
-          type="submit"
+          type="button"
           className="w-full  hover:bg-orange-600 hover:text-white "
+          onClick={() => handleSubmitWithPublishedStatus(false)}
         >
-          Save
+          {isLoading ? "Loading..." : "Save"}
         </Button>
         <Button
           type="button"
           className="w-full bg-orange-500 hover:bg-orange-600"
+          onClick={() => handleSubmitWithPublishedStatus(true)}
         >
-          Publish
+          {isLoading ? "Loading..." : "Publish"}
         </Button>
       </form>
     </div>
