@@ -18,7 +18,7 @@ const OpenPage = () => {
   const openOrders = orderData?.filter(
     (order: any) => order.status === "OPEN" && order?.isPublished
   );
-  console.log(openOrders);
+  // console.log(openOrders);
 
   return (
     <div>

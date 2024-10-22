@@ -2,12 +2,30 @@
 import FreeVisitRequestCard from "@/components/freeVisitRequest/FreeVisitRequestCard";
 import CreateHelpOrderButton from "@/components/shared/createHelpOrderButton/CreateHelpOrderButton";
 import MainIcon from "@/components/shared/mainIcon/MainIcon";
-import { cardData } from "@/data/openPageCardData";
+import { useGetOrdersQuery } from "@/redux/api/orderApi";
 import { RootState } from "@/redux/store";
 import { useSelector } from "react-redux";
 
 const FreePageVisit = () => {
   const user = useSelector((state: RootState) => state.user.user); // Get user from Redux (make sure to access .user)
+
+  const { data } = useGetOrdersQuery({});
+  const orderData = data?.data;
+  // const orderMeta = data?.meta;
+
+  const freeVisitReqOrders = orderData?.filter(
+    (order: any) =>
+      order.status === "OPEN" &&
+      order?.isPublished &&
+      order?.freeVisits.length > 0
+  );
+
+  const allFreeVisit = freeVisitReqOrders
+    ?.map((order: any) => order.freeVisits)
+    .flat();
+
+  console.log(allFreeVisit);
+
   return (
     <div>
       <div className="flex items-center flex-col justify-center mb-10">
@@ -20,18 +38,12 @@ const FreePageVisit = () => {
         </div>
       )}
       <div className="grid grid-cols-6   gap-5 mx-auto max-w-screen">
-        {cardData.map((card, index) => (
-          <div key={index} className="md:col-span-3 lg:col-span-2 col-span-6 ">
+        {allFreeVisit?.map((freeVisit: any, index: number) => (
+          <div key={index} className="md:col-span-3 lg:col-span-2 col-span-6">
             <FreeVisitRequestCard
-              backgroundImage={card.backgroundImage}
-              profileImage={card.profileImage}
-              profileName={card.profileName}
-              title={card.title}
-              serviceType={card.serviceType}
-              location={card.location}
-              description={card.description}
-              price={card.price}
+              freeVisit={freeVisit}
             />
+            <h1>hello world</h1>
           </div>
         ))}
       </div>

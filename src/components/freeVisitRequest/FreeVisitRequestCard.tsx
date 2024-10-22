@@ -4,28 +4,15 @@ import { MessageCircle, Star } from "lucide-react";
 import Image, { StaticImageData } from "next/image";
 import { useSelector } from "react-redux";
 import { IoLocationSharp } from "react-icons/io5";
+import orderBg from "@/assets/images/orderbg.jpg";
+import profile from "@/assets/images/profile.jpg";
 
 interface FreeVisitRequestCardProps {
-  backgroundImage: StaticImageData;
-  profileImage: StaticImageData;
-  profileName: string;
-  title: string;
-  serviceType: string;
-  location: string;
-  description: string;
-  price: string;
+  freeVisit : any;
 }
 
 const FreeVisitRequestCard: React.FC<FreeVisitRequestCardProps> = ({
-  backgroundImage,
-  profileImage,
-  profileName,
-  title,
-  serviceType,
-  location,
-  description,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  price,
+ freeVisit
 }) => {
   const user = useSelector((state: RootState) => state.user.user);
   //   console.log(user);
@@ -33,17 +20,26 @@ const FreeVisitRequestCard: React.FC<FreeVisitRequestCardProps> = ({
   return (
     <div className="w-full bg-white shadow-lg rounded-lg overflow-hidden">
       <div className="relative h-40 bg-gray-100">
-        <Image src={backgroundImage} alt="Background" layout="fill" objectFit="cover" />
+        <Image src={orderBg} alt="Background" layout="fill" objectFit="cover" />
       </div>
       <div>
         <div className="bg-orange-500 p-4 flex items-center">
-          <Image src={profileImage} alt={profileName} width={48} height={48} className="rounded-full mr-3" />
-          <span className="text-white text-lg font-semibold">{profileName}</span>
+          <Image
+            src={profile}
+            alt={profile}
+            width={48}
+            height={48}
+            className="rounded-full mr-3"
+          />
+          <span className="text-white text-lg font-semibold">
+            {profileName}
+          </span>
         </div>
         <div className="p-6">
           <h2 className="text-xl font-bold mb-2">{title}</h2>
           <p className="text-base text-black mb-1 font-bold">
-            Service Type | <span className="text-orange-500">{serviceType}</span>
+            Service Type |{" "}
+            <span className="text-orange-500">{serviceType}</span>
           </p>
           <p className="text-base text-black mb-1 font-bold">
             Help Location | <span className="text-orange-500">{location}</span>
@@ -51,7 +47,9 @@ const FreeVisitRequestCard: React.FC<FreeVisitRequestCardProps> = ({
           <p className="text-gray-700 mb-4">
             {
               // description will be truncated to 100 characters
-              description.length > 70 ? description.substring(0, 70) + "..." : description
+              description.length > 70
+                ? description.substring(0, 70) + "..."
+                : description
             }
           </p>
           {/* <p className="text-base text-black mb-1 font-bold">
@@ -63,7 +61,9 @@ const FreeVisitRequestCard: React.FC<FreeVisitRequestCardProps> = ({
           {user?.role === "CUSTOMER" && (
             <div className="flex items-start justify-between">
               <div className="bg-white  border max-w-xs w-2/3">
-                <h2 className="text-lg px-2 pb-2 font-semibold text-gray-700 border mb-3">Requested By</h2>
+                <h2 className="text-lg px-2 pb-2 font-semibold text-gray-700 border mb-3">
+                  Requested By
+                </h2>
                 <div className="flex items-center p-2">
                   <div className="relative w-12 h-12 mr-3">
                     <Image
