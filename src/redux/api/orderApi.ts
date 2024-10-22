@@ -63,7 +63,7 @@ const helpOrderApi = baseApi.injectEndpoints({
     cancelOrder: build.mutation({
       query: (orderId: number) => ({
         url: `/orders/cancel-order/${orderId}`,
-        method: "PATCH",
+        method: "DELETE",
       }),
       invalidatesTags: ["order"],
     }),
