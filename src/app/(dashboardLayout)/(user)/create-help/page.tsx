@@ -17,6 +17,7 @@ import { useCreateOrderMutation } from "@/redux/api/orderApi";
 import { RootState } from "@/redux/store";
 import { ServiceOption, TimeUnit } from "@/types/common";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Controller, useFieldArray, useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
@@ -37,6 +38,8 @@ type FormData = {
 };
 
 export default function CreateHelpOrder() {
+  const router = useRouter();
+
   const [createOrder, { isLoading }] = useCreateOrderMutation();
 
   const [isOtherService, setIsOtherService] = useState(false);
@@ -60,6 +63,10 @@ export default function CreateHelpOrder() {
     const formattedData = {
       ...data,
       customerId: user.id,
+      budget: data.budget.map((item) => ({
+        ...item,
+        stepCost: Number(item.stepCost),
+      })),
     };
 
     console.log("Submitting Data: ", formattedData);
@@ -67,6 +74,12 @@ export default function CreateHelpOrder() {
     try {
       const res = await createOrder(formattedData).unwrap();
       console.log("Order created successfully:", res);
+
+      if (data.isPublished) {
+        router.push("/open"); // Redirect to the Open page
+      } else {
+        router.push("/saved"); // Redirect to the Saved page
+      }
     } catch (error) {
       console.error("Error creating order:", error);
     }
