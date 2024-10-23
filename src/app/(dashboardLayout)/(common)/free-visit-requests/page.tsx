@@ -24,7 +24,6 @@ const FreePageVisit = () => {
     ?.map((order: any) => order.freeVisits)
     .flat();
 
-  console.log(allFreeVisit);
 
   return (
     <div>
@@ -43,7 +42,6 @@ const FreePageVisit = () => {
             <FreeVisitRequestCard
               freeVisit={freeVisit}
             />
-            <h1>hello world</h1>
           </div>
         ))}
       </div>
