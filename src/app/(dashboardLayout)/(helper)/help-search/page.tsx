@@ -50,7 +50,7 @@ const HelpSearchPage = () => {
   console.log(search);
   return (
     <div className="grid grid-cols-1 xl:grid-cols-4 gap-5">
-      <div className="w-full">
+      <div className="w-full xl:sticky top-10 left-0 h-screen bg-white">
         <HelpSearchFilterComponent
           formData={formData}
           setFormData={setFormData}
@@ -65,7 +65,7 @@ const HelpSearchPage = () => {
         <div className="mb-5">
           <SearchBar handleSearchSubmit={handleSearchSubmit} setSearch={setSearch} />
         </div>
-        <div className="grid  grid-cols-1 md:grid-cols-2 gap-5">
+        <div className="grid  grid-cols-1 md:grid-cols-2 gap-5 pb-5">
           <HelpSearchPageCard order={sampleOrder} />
           <HelpSearchPageCard order={sampleOrder} />
           <HelpSearchPageCard order={sampleOrder} />
