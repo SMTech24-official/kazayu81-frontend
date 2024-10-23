@@ -15,7 +15,7 @@ const FreePageVisit = () => {
 
   const freeVisitReqOrders = orderData?.filter(
     (order: any) =>
-      order.status === "OPEN" &&
+      // order.status === "OPEN" &&
       order?.isPublished &&
       order?.freeVisits.length > 0
   );

@@ -5,6 +5,7 @@ import { useUpdateFreeVisitStatusMutation } from "@/redux/api/freeVisitApi";
 import { useGetOrderByIdQuery } from "@/redux/api/orderApi";
 import { RootState } from "@/redux/store";
 import { FreeVisitStatus } from "@/types/common";
+import { format } from "date-fns";
 import { MessageCircle, Star } from "lucide-react";
 import Image from "next/image";
 import { IoLocationSharp } from "react-icons/io5";
@@ -87,9 +88,22 @@ const FreeVisitRequestCard: React.FC<FreeVisitRequestCardProps> = ({
                 : order?.description
             }
           </p>
-          {/* <p className="text-base text-black mb-1 font-bold">
-            Scheduled Date | <span className="text-orange-500 text-sm">July 10, 2024 - 4:00 pm EST</span>
-          </p> */}
+          <p className="text-base text-black mb-3 font-bold">
+            Scheduled Date |{" "}
+            <span className="text-orange-500 text-sm">
+              {" "}
+              {freeVisit?.scheduledDate
+                ? format(new Date(freeVisit.scheduledDate), "MMMM dd, yyyy")
+                : ""}
+              -
+              {freeVisit?.scheduledTime
+                ? format(
+                    new Date(`${freeVisit.scheduledTime}`),
+                    "hh:mm a"
+                  )
+                : ""}
+            </span>
+          </p>
 
           {/* requested by section */}
 

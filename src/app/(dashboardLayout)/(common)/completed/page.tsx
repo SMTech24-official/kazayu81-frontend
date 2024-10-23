@@ -2,13 +2,23 @@
 import CompletedCard from "@/components/completed/CompletedCard";
 import CreateHelpOrderButton from "@/components/shared/createHelpOrderButton/CreateHelpOrderButton";
 import MainIcon from "@/components/shared/mainIcon/MainIcon";
-import { cardData } from "@/data/openPageCardData";
+import { useGetOrdersQuery } from "@/redux/api/orderApi";
 import { RootState } from "@/redux/store";
+import { OrderStatus } from "@/types/common";
+import { IOrder } from "@/types/helpOrder";
 import React from "react";
 import { useSelector } from "react-redux";
 
 const CompletedPage = () => {
   const user = useSelector((state: RootState) => state.user.user); // Get user from Redux (make sure to access .user)
+
+  const { data } = useGetOrdersQuery({});
+  const orderData = data?.data;
+  // const orderMeta = data?.meta;
+
+  const completedOrders = orderData?.filter(
+    (order: any) => order.status === OrderStatus.COMPLETED && order?.isPublished
+  );
 
   return (
     <div>
@@ -23,18 +33,8 @@ const CompletedPage = () => {
       )}
 
       <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-3 my-10">
-        {cardData?.map((card, index) => (
-          <CompletedCard
-            backgroundImage={card.backgroundImage}
-            profileImage={card.profileImage}
-            profileName={card.profileName}
-            title={card.title}
-            serviceType={card.serviceType}
-            location={card.location}
-            description={card.description}
-            price={card.price}
-            key={index}
-          />
+        {completedOrders?.map((order: IOrder) => (
+          <CompletedCard key={order?.id} order={order} />
         ))}
       </div>
     </div>
