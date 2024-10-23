@@ -110,12 +110,12 @@ export default function HelpSearchFilterComponent({
   // console.table(formData);
 
   return (
-    <form className="space-y-4 w-full max-w-md">
+    <form className="w-full flex flex-col gap-5 ">
       {/* Service Type Field */}
       <div>
-        <label className="block">Professional Service Type</label>
+        <label className="block mb-2">Professional Service Type</label>
         <Select onValueChange={(value) => handleSelectChange("serviceType", value)} value={formData.serviceType}>
-          <SelectTrigger className="focus:ring-0 focus:ring-offset-0 h-12 text-md">
+          <SelectTrigger className="focus:ring-0 w-full focus:ring-offset-0 h-12 text-md">
             <SelectValue placeholder="Select Service Type" />
           </SelectTrigger>
           <SelectContent>
@@ -129,7 +129,7 @@ export default function HelpSearchFilterComponent({
 
       {/* Service Location Field */}
       <div>
-        <label className="block">Service Location</label>
+        <label className="block  mb-2">Service Location</label>
         <Select
           onValueChange={(value) => handleSelectChange("serviceLocation", value)}
           value={formData.serviceLocation}
@@ -147,9 +147,9 @@ export default function HelpSearchFilterComponent({
       </div>
 
       {/* Budget Fields */}
-      <div className="flex space-x-4">
+      <div className="flex flex-col md:flex-row gap-4">
         <div className="flex-1">
-          <label className="block">Budget (Min)</label>
+          <label className="block  mb-2">Budget (Min)</label>
           <Input
             type="number"
             name="minBudget"
@@ -161,7 +161,7 @@ export default function HelpSearchFilterComponent({
           {errors.minBudget && <p className="text-red-500">{errors.minBudget}</p>}
         </div>
         <div className="flex-1">
-          <label className="block">Budget (Max)</label>
+          <label className="block  mb-2">Budget (Max)</label>
           <Input
             type="number"
             name="maxBudget"
@@ -175,9 +175,9 @@ export default function HelpSearchFilterComponent({
       </div>
 
       {/* Help Duration Fields */}
-      <div className="flex space-x-4">
+      <div className="flex flex-col md:flex-row gap-4">
         <div className="flex-1">
-          <label className="block">Help Duration</label>
+          <label className="block mb-2">Help Duration</label>
           <Input
             type="number"
             name="helpDuration"
@@ -189,7 +189,7 @@ export default function HelpSearchFilterComponent({
           {errors.helpDuration && <p className="text-red-500">{errors.helpDuration}</p>}
         </div>
         <div className="flex-1">
-          <label className="block">Duration Unit</label>
+          <label className="block  mb-2">Duration Unit</label>
           <Select onValueChange={(value) => handleSelectChange("durationUnit", value)} value={formData.durationUnit}>
             <SelectTrigger className="focus:ring-0 focus:ring-offset-0 h-12 text-md">
               <SelectValue placeholder="Select Unit" />
@@ -205,11 +205,11 @@ export default function HelpSearchFilterComponent({
       </div>
 
       {/* Publish Date Fields */}
-      <p>Post Published</p>
-      <div className="flex gap-5">
+      {/* <p>Post Published</p> */}
+      <div className="flex flex-col md:flex-row gap-5">
         {/* Publish Date From */}
-        <div>
-          <label>From</label>
+        <div className="flex-1">
+          <label className="block mb-2">From</label>
           <Popover open={isOpen.from} onOpenChange={(open) => setIsOpen({ ...isOpen, from: open })}>
             <PopoverTrigger asChild>
               <Button
@@ -239,8 +239,8 @@ export default function HelpSearchFilterComponent({
         </div>
 
         {/* Publish Date To */}
-        <div>
-          <label>To</label>
+        <div className="flex-1">
+          <label className="block mb-2">To</label>
           <Popover open={isOpen.to} onOpenChange={(open) => setIsOpen({ ...isOpen, to: open })}>
             <PopoverTrigger asChild>
               <Button

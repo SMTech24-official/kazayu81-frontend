@@ -30,7 +30,10 @@ const SearchBar = ({ setSearch, handleSearchSubmit }: SearchBarProps) => {
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
       />
-      <Button onClick={handleSearchSubmit} className="bg-orange-500 hover:bg-orange-600 text-white rounded-r-md">
+      <Button
+        onClick={handleSearchSubmit}
+        className="bg-orange-500 hover:bg-orange-600 text-white rounded-r-md h-12 text-md"
+      >
         Search
       </Button>
     </div>

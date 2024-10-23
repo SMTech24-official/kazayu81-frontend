@@ -1,6 +1,7 @@
 "use client";
 import HelpSearchFilterComponent from "@/components/helpSearch/HelpSearchFilterComponent";
 import SearchBar from "@/components/helpSearch/SearchBar";
+import HelpSearchPageCard from "@/components/HelpSearchPageCard/HelpSearchPageCard";
 import React, { useState } from "react";
 
 const HelpSearchPage = () => {
@@ -30,10 +31,26 @@ const HelpSearchPage = () => {
     console.log("search", search);
   };
 
+  const sampleOrder = {
+    orderId: "12345",
+    customer: {
+      firstName: "John",
+      lastName: "Doe",
+      user: {
+        profileImage: undefined, // or provide a URL to an image
+      },
+    },
+    subject: "Need help with gardening",
+    serviceType: "Gardening",
+    serviceLocation: "New York, NY",
+    description: "I need help with my garden. It needs weeding, planting, and general maintenance.",
+    totalCost: 150,
+  };
+
   console.log(search);
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-4 gap-5">
-      <div className="sticky top-0">
+    <div className="grid grid-cols-1 xl:grid-cols-4 gap-5">
+      <div className="w-full">
         <HelpSearchFilterComponent
           formData={formData}
           setFormData={setFormData}
@@ -48,9 +65,12 @@ const HelpSearchPage = () => {
         <div className="mb-5">
           <SearchBar handleSearchSubmit={handleSearchSubmit} setSearch={setSearch} />
         </div>
-        <div className="grid border grid-cols-1 md:grid-cols-2 gap-5">
-          <div className="border">C1</div>
-          <div className="border">C2</div>
+        <div className="grid  grid-cols-1 md:grid-cols-2 gap-5">
+          <HelpSearchPageCard order={sampleOrder} />
+          <HelpSearchPageCard order={sampleOrder} />
+          <HelpSearchPageCard order={sampleOrder} />
+
+          <HelpSearchPageCard order={sampleOrder} />
         </div>
       </div>
     </div>
