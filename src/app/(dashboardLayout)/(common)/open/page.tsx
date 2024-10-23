@@ -4,6 +4,7 @@ import MainIcon from "@/components/shared/mainIcon/MainIcon";
 import ServiceCardHelperUser from "@/components/shared/serviceCard/ServiceCardHelperUser";
 import { useGetOrdersQuery } from "@/redux/api/orderApi";
 import { RootState } from "@/redux/store";
+import { OrderStatus } from "@/types/common";
 import { IOrder } from "@/types/helpOrder";
 import React from "react";
 import { useSelector } from "react-redux";
@@ -16,7 +17,7 @@ const OpenPage = () => {
   // const orderMeta = data?.meta;
 
   const openOrders = orderData?.filter(
-    (order: any) => order.status === "OPEN" && order?.isPublished
+    (order: any) => order.status === OrderStatus.OPEN && order?.isPublished
   );
   // console.log(openOrders);
 
