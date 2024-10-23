@@ -1,9 +1,10 @@
 "use client";
 
-import { useForm, useFieldArray, Controller } from "react-hook-form";
+import mainIcon from "@/assets/images/main-ico.png";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import {
   Select,
   SelectContent,
@@ -11,39 +12,90 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { useCreateOrderMutation } from "@/redux/api/orderApi";
+import { RootState } from "@/redux/store";
+import { ServiceOption, TimeUnit } from "@/types/common";
 import Image from "next/image";
-import mainIcon from "@/assets/images/main-ico.png";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { Controller, useFieldArray, useForm } from "react-hook-form";
+import { useSelector } from "react-redux";
 
 type FormData = {
-  helpSubject: string;
-  helpDescription: string;
-  workplaceLocation: string;
-  helpDuration: string;
-  helpTime: string;
+  subject: string;
+  description: string;
+  duration: string;
+  timeUnit: TimeUnit;
   serviceLocation: string;
   city: string;
   state: string;
   serviceType: string;
-  materialIncluded: "material" | "labor";
-  steps: { description: string; cost: string }[];
+  otherService?: string;
+  serviceOption: ServiceOption;
+  budget: { stepDescription: string; stepCost: number }[];
+  isPublished: boolean;
 };
 
-export default function Component() {
-  const { register, control, handleSubmit } = useForm<FormData>({
+export default function CreateHelpOrder() {
+  const router = useRouter();
+
+  const [createOrder, { isLoading }] = useCreateOrderMutation();
+
+  const [isOtherService, setIsOtherService] = useState(false);
+
+  const user = useSelector((state: RootState) => state.user.user);
+
+  const { register, control, handleSubmit, setValue } = useForm<FormData>({
     defaultValues: {
-      steps: [{ description: "", cost: "" }],
+      budget: [{ stepDescription: "", stepCost: 0 }],
+      isPublished: false,
     },
   });
 
   const { fields, append, remove } = useFieldArray({
     control,
-    name: "steps",
+    name: "budget",
   });
 
-  const onSubmit = (data: FormData) => {
-    console.log(data);
+  const onSubmit = async (data: FormData) => {
+    // Ensure customerId is included and log data
+    const formattedData = {
+      ...data,
+      customerId: user.id,
+      budget: data.budget.map((item) => ({
+        ...item,
+        stepCost: Number(item.stepCost),
+      })),
+    };
+
+    console.log("Submitting Data: ", formattedData);
+
+    try {
+      const res = await createOrder(formattedData).unwrap();
+      console.log("Order created successfully:", res);
+
+      if (data.isPublished) {
+        router.push("/open"); // Redirect to the Open page
+      } else {
+        router.push("/saved"); // Redirect to the Saved page
+      }
+    } catch (error) {
+      console.error("Error creating order:", error);
+    }
+  };
+
+  const otherServiceHandler = (value: string) => {
+    if (value === "other") {
+      setIsOtherService(true);
+    } else {
+      setIsOtherService(false);
+    }
+  };
+
+  const handleSubmitWithPublishedStatus = (isPublishedStatus: boolean) => {
+    setValue("isPublished", isPublishedStatus);
+    handleSubmit(onSubmit)(); // Ensure form is submitted correctly
   };
 
   return (
@@ -62,41 +114,43 @@ export default function Component() {
       </div>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6  p-6">
         <div>
-          <Label className="font-semibold" htmlFor="helpSubject">Help Subject</Label>
-          <Input className="mt-3" id="helpSubject" {...register("helpSubject")} />
+          <Label className="font-semibold" htmlFor="subject">
+            Help Subject
+          </Label>
+          <Input className="mt-3" id="subject" {...register("subject")} />
         </div>
 
         <div>
-          <Label className="font-semibold" htmlFor="helpDescription">Help Description</Label>
-          <Textarea className="mt-3" id="helpDescription" {...register("helpDescription")} />
-        </div>
-
-        <div>
-          <Label className="font-semibold" htmlFor="workplaceLocation">Help workplace location</Label>
-          <Input
-            id="workplaceLocation"
-            {...register("workplaceLocation")}
-            placeholder="Address"
+          <Label className="font-semibold" htmlFor="description">
+            Help Description
+          </Label>
+          <Textarea
             className="mt-3"
+            id="description"
+            {...register("description")}
           />
         </div>
 
         <div className="flex flex-col sm:flex-row space-y-5 sm:space-y-0 sm:space-x-4">
           <div className="flex-1">
-            <Label className="font-semibold" htmlFor="helpDuration">Help Duration</Label>
+            <Label className="font-semibold" htmlFor="duration">
+              Help Duration
+            </Label>
             <Input
-              id="helpDuration"
+              id="duration"
               type="number"
-              {...register("helpDuration")}
+              {...register("duration")}
               className="mt-3"
             />
           </div>
 
           <div className="flex-1 ">
-            <Label className="font-semibold" htmlFor="helpTime">Select Time</Label>
+            <Label className="font-semibold" htmlFor="timeUnit">
+              Select Time
+            </Label>
             <select
-              id="helpTime"
-              {...register("helpTime")}
+              id="timeUnit"
+              {...register("timeUnit")}
               className="w-[180px] p-2 border rounded block mt-3"
             >
               <option value="">Select time</option>
@@ -110,18 +164,29 @@ export default function Component() {
         </div>
 
         <div>
-          <Label className="font-semibold" htmlFor="serviceLocation">Service location</Label>
-          <Input className="mt-3" id="serviceLocation" {...register("serviceLocation")} />
+          <Label className="font-semibold" htmlFor="serviceLocation">
+            Service location
+          </Label>
+          <Input
+            className="mt-3"
+            placeholder="Address"
+            id="serviceLocation"
+            {...register("serviceLocation")}
+          />
         </div>
 
         <div className="flex sm:flex-row flex-col gap-4">
           <div className="flex-1">
-            <Label className="font-semibold" htmlFor="city">City</Label>
+            <Label className="font-semibold" htmlFor="city">
+              City
+            </Label>
             <Input className="mt-3" id="city" {...register("city")} />
           </div>
 
           <div className="flex-1">
-            <Label className="font-semibold" htmlFor="state">State</Label>
+            <Label className="font-semibold" htmlFor="state">
+              State
+            </Label>
             <Controller
               name="state"
               control={control}
@@ -153,7 +218,13 @@ export default function Component() {
             name="serviceType"
             control={control}
             render={({ field }) => (
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
+              <Select
+                onValueChange={(value) => {
+                  field.onChange(value);
+                  otherServiceHandler(value);
+                }}
+                defaultValue={field.value}
+              >
                 <SelectTrigger className="w-full mt-3">
                   <SelectValue placeholder="Select Service Type" />
                 </SelectTrigger>
@@ -171,10 +242,23 @@ export default function Component() {
           />
         </div>
 
+        {isOtherService && (
+          <div>
+            <Label className="font-semibold" htmlFor="otherService">
+              Please specify your service
+            </Label>
+            <Input
+              className="mt-3"
+              placeholder="Enter your service"
+              id="otherService"
+              {...register("otherService")}
+            />
+          </div>
+        )}
+
         <div>
-          <Label>Material Included</Label>
           <Controller
-            name="materialIncluded"
+            name="serviceOption"
             control={control}
             render={({ field }) => (
               <RadioGroup
@@ -183,11 +267,11 @@ export default function Component() {
                 className="flex space-x-4 mt-3"
               >
                 <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="material" id="material" />
+                  <RadioGroupItem value="MATERIAL_INCLUDED" id="material" />
                   <Label htmlFor="material">Material included</Label>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="labor" id="labor" />
+                  <RadioGroupItem value="ONLY_LABOR" id="labor" />
                   <Label htmlFor="labor">Only labor</Label>
                 </div>
               </RadioGroup>
@@ -198,13 +282,16 @@ export default function Component() {
         <div>
           <Label>Budget</Label>
           {fields.map((field, index) => (
-            <div key={field.id} className="flex sm:flex-row flex-col gap-3 mt-3">
+            <div
+              key={field.id}
+              className="flex sm:flex-row flex-col gap-3 mt-3"
+            >
               <Input
-                {...register(`steps.${index}.description`)}
+                {...register(`budget.${index}.stepDescription`)}
                 placeholder="Step description"
               />
               <Input
-                {...register(`steps.${index}.cost`)}
+                {...register(`budget.${index}.stepCost`)}
                 placeholder="Step cost"
                 type="number"
               />
@@ -222,7 +309,7 @@ export default function Component() {
           ))}
           <Button
             type="button"
-            onClick={() => append({ description: "", cost: "" })}
+            onClick={() => append({ stepDescription: "", stepCost: 0 })}
             className="mt-2 bg-orange-500 hover:bg-orange-600"
           >
             Add Step
@@ -232,16 +319,18 @@ export default function Component() {
         <Button
           size={"lg"}
           variant={"outline"}
-          type="submit"
+          type="button"
           className="w-full  hover:bg-orange-600 hover:text-white "
+          onClick={() => handleSubmitWithPublishedStatus(false)}
         >
-          Save
+          {isLoading ? "Loading..." : "Save"}
         </Button>
         <Button
           type="button"
           className="w-full bg-orange-500 hover:bg-orange-600"
+          onClick={() => handleSubmitWithPublishedStatus(true)}
         >
-          Publish
+          {isLoading ? "Loading..." : "Publish"}
         </Button>
       </form>
     </div>

@@ -41,6 +41,15 @@ const helpOrderApi = baseApi.injectEndpoints({
       invalidatesTags: ["order"],
     }),
 
+    // save or publish order
+    saveOrPublishOrder: build.mutation({
+      query: (orderId: number) => ({
+        url: `/orders/save-or-publish/${orderId}`,
+        method: "PATCH",
+      }),
+      invalidatesTags: ["order"],
+    }),
+
     // accept order by helper
     acceptOrder: build.mutation({
       query: (orderId: number) => ({
@@ -54,7 +63,7 @@ const helpOrderApi = baseApi.injectEndpoints({
     cancelOrder: build.mutation({
       query: (orderId: number) => ({
         url: `/orders/cancel-order/${orderId}`,
-        method: "PATCH",
+        method: "DELETE",
       }),
       invalidatesTags: ["order"],
     }),
@@ -84,6 +93,7 @@ export const {
   useGetOrdersQuery,
   useGetOrderByIdQuery,
   useUpdateOrderMutation,
+  useSaveOrPublishOrderMutation,
   useAcceptOrderMutation,
   useCancelOrderMutation,
   useCompleteOrderMutation,

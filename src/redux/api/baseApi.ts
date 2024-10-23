@@ -36,5 +36,6 @@ export const baseApi = createApi({
     "chatroom",
     "paymentInfo",
     "order",
+    "freeVisit",
   ],
 });
