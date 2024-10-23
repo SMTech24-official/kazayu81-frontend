@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
@@ -9,27 +9,45 @@ import { cn } from "@/lib/utils";
 import { CalendarIcon } from "lucide-react";
 import { format } from "date-fns";
 
-export default function HelpSearchFilterComponent() {
+interface HelpSearchFilterComponentProps {
+  formData: {
+    serviceType: string;
+    serviceLocation: string;
+    minBudget: string;
+    maxBudget: string;
+    helpDuration: string;
+    durationUnit: string;
+    publishDateFrom?: Date;
+    publishDateTo?: Date;
+  };
+  setFormData: (data: any) => void;
+  isOpen: {
+    from: boolean;
+    to: boolean;
+  };
+  setIsOpen: (open: { from: boolean; to: boolean }) => void;
+  errors: {
+    serviceType?: string;
+    serviceLocation?: string;
+    minBudget?: string;
+    maxBudget?: string;
+    helpDuration?: string;
+    durationUnit?: string;
+    publishDateFrom?: string;
+    publishDateTo?: string;
+  };
+  setErrors: (errors: any) => void;
+}
+
+export default function HelpSearchFilterComponent({
+  formData,
+  setFormData,
+  isOpen,
+  setIsOpen,
+  errors,
+  setErrors,
+}: HelpSearchFilterComponentProps) {
   // Form state
-  const [formData, setFormData] = useState({
-    serviceType: "",
-    serviceLocation: "",
-    minBudget: 0,
-    maxBudget: 0,
-    helpDuration: 0,
-    durationUnit: "",
-    publishDateFrom: undefined as Date | undefined,
-    publishDateTo: undefined as Date | undefined,
-  });
-
-  // States for calendars open and close
-  const [isOpen, setIsOpen] = useState({
-    to: false,
-    from: false,
-  });
-
-  // Error state
-  const [errors, setErrors] = useState<any>({});
 
   // Handle input change
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -89,7 +107,7 @@ export default function HelpSearchFilterComponent() {
     }
   };
 
-  console.table(formData);
+  // console.table(formData);
 
   return (
     <form className="space-y-4 w-full max-w-md">
