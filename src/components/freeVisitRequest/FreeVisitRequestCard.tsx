@@ -1,12 +1,15 @@
 "use client";
 import orderBg from "@/assets/images/orderbg.jpg";
 import profile from "@/assets/images/profile.jpg";
+import { useUpdateFreeVisitStatusMutation } from "@/redux/api/freeVisitApi";
 import { useGetOrderByIdQuery } from "@/redux/api/orderApi";
 import { RootState } from "@/redux/store";
+import { FreeVisitStatus } from "@/types/common";
 import { MessageCircle, Star } from "lucide-react";
 import Image from "next/image";
 import { IoLocationSharp } from "react-icons/io5";
 import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
 
 interface FreeVisitRequestCardProps {
   freeVisit: any;
@@ -20,11 +23,26 @@ const FreeVisitRequestCard: React.FC<FreeVisitRequestCardProps> = ({
   const { data } = useGetOrderByIdQuery(freeVisit?.orderId);
   const order = data?.data;
 
-  console.log(
-    order?.freeVisits?.find(
-      (visit: any) => visit?.helperId === freeVisit?.helperId
-    )?.helper?.user?.profileImage
-  );
+  const [updateFreeVisitStatus] = useUpdateFreeVisitStatusMutation();
+
+  const updateFreeVisitStatusHandler = async (
+    freeVisitStatus: FreeVisitStatus
+  ) => {
+    try {
+      await updateFreeVisitStatus({
+        freeVisitId: freeVisit?.id,
+        data: { freeVisitStatus },
+      });
+
+      // console.log(res);
+      toast.success("Free visit status updated successfully", {
+        autoClose: 1000,
+      });
+    } catch (error) {
+      console.log(error);
+      toast.error("Failed to update free visit status");
+    }
+  };
 
   return (
     <div className="w-full bg-white shadow-lg rounded-lg overflow-hidden">
@@ -141,11 +159,39 @@ const FreeVisitRequestCard: React.FC<FreeVisitRequestCardProps> = ({
                 // HELPER
                 user?.role === "CUSTOMER" && (
                   <div>
-                    <button className="mr-2 px-4 py-2 border border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white transition-all duration-300  text-sm font-semibold">
-                      Accept
+                    <button
+                      onClick={() =>
+                        updateFreeVisitStatusHandler(FreeVisitStatus.ACCEPTED)
+                      }
+                      className={`mr-2 px-4 py-2 border border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white transition-all duration-300  text-sm font-semibold ${
+                        freeVisit?.freeVisitStatus === FreeVisitStatus.ACCEPTED
+                          ? "bg-orange-500 text-white"
+                          : ""
+                      }`}
+                      disabled={
+                        freeVisit?.freeVisitStatus === FreeVisitStatus.ACCEPTED
+                      }
+                    >
+                      {freeVisit?.freeVisitStatus === FreeVisitStatus.ACCEPTED
+                        ? "Accepted"
+                        : "Accept"}
                     </button>
-                    <button className="mr-2 px-4 py-2 border border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white transition-all duration-300  text-sm font-semibold">
-                      Reject
+                    <button
+                      onClick={() =>
+                        updateFreeVisitStatusHandler(FreeVisitStatus.REJECTED)
+                      }
+                      className={`mr-2 px-4 py-2 border border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white transition-all duration-300  text-sm font-semibold ${
+                        freeVisit?.freeVisitStatus === FreeVisitStatus.REJECTED
+                          ? "bg-gray-800 text-white border-gray-800"
+                          : ""
+                      }`}
+                      disabled={
+                        freeVisit?.freeVisitStatus === FreeVisitStatus.REJECTED
+                      }
+                    >
+                      {freeVisit?.freeVisitStatus === FreeVisitStatus.REJECTED
+                        ? "Rejected"
+                        : "Reject"}
                     </button>
                   </div>
                 )
