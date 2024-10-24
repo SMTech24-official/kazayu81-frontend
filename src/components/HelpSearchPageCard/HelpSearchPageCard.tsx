@@ -6,26 +6,10 @@ import { useSelector } from "react-redux";
 import orderBg from "@/assets/images/orderbg.jpg";
 import profile from "@/assets/images/profile.jpg";
 import { FaMapMarkerAlt } from "react-icons/fa";
-
-interface Order {
-  orderId: string;
-  customer: {
-    firstName: string;
-    lastName: string;
-    user: {
-      profileImage?: string;
-      firstName?: string;
-    };
-  };
-  subject: string;
-  serviceType: string;
-  serviceLocation: string;
-  description: string;
-  totalCost: number;
-}
+import { IOrder } from "@/types/helpOrder";
 
 interface HelpSearchPageCardProps {
-  order: Order;
+  order: IOrder;
 }
 
 const HelpSearchPageCard: React.FC<HelpSearchPageCardProps> = ({ order }) => {

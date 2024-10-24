@@ -1,14 +1,17 @@
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { useEffect, useState } from "react";
+import { Input } from "@/components/ui/input";
 import useDebounce from "@/hooks/useDebounce ";
+import { useEffect, useState } from "react";
 
 interface SearchBarProps {
   setSearch: (value: string) => void;
   handleSearchSubmit: () => void;
 }
 
-const SearchBar = ({ setSearch, handleSearchSubmit }: SearchBarProps) => {
+const SearchBar = ({
+  setSearch,
+  handleSearchSubmit
+}: SearchBarProps) => {
   // state for search bar
 
   const [searchTerm, setSearchTerm] = useState("");
