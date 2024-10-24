@@ -50,7 +50,7 @@ const HelpSearchPage = () => {
   console.log(search);
   return (
     <div className="grid grid-cols-1 xl:grid-cols-4 gap-5">
-      <div className="w-full xl:sticky top-10 left-0 h-screen bg-white">
+      <div className="w-full xl:sticky top-10 left-0 xl:h-screen bg-white">
         <HelpSearchFilterComponent
           formData={formData}
           setFormData={setFormData}
