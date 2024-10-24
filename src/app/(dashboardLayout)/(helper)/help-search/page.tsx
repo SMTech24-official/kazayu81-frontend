@@ -3,7 +3,7 @@ import HelpSearchFilterComponent from "@/components/helpSearch/HelpSearchFilterC
 import SearchBar from "@/components/helpSearch/SearchBar";
 import HelpSearchPageCard from "@/components/HelpSearchPageCard/HelpSearchPageCard";
 import { useGetAllOrderQuery } from "@/redux/api/orderApi";
-import { TimeUnit } from "@/types/common";
+import { OrderStatus, TimeUnit } from "@/types/common";
 import { IOrder } from "@/types/helpOrder";
 import React, { useState } from "react";
 
@@ -55,14 +55,17 @@ const HelpSearchPage = () => {
   const [errors, setErrors] = useState<any>({});
 
   // Handle search submit
-  const handleSearchSubmit = () => {console.log("search", search);};
-  
+  const handleSearchSubmit = () => {
+    console.log("search", search);
+  };
 
-  // fetch all order
+  // redux querys
   const { data } = useGetAllOrderQuery({ ...query });
   const orderData = data?.data?.data;
   // const orderMeta = data?.data?.meta;
-  // console.log(orderMeta);
+  const openDatas = orderData?.filter(
+    (order: IOrder) => order.status === OrderStatus.OPEN
+  );
 
   return (
     <div className="grid grid-cols-1 xl:grid-cols-4 gap-5">
@@ -85,7 +88,7 @@ const HelpSearchPage = () => {
           />
         </div>
         <div className="grid  grid-cols-1 md:grid-cols-2 gap-5 pb-5">
-          {orderData?.map((order: IOrder) => (
+          {openDatas?.map((order: IOrder) => (
             <HelpSearchPageCard key={order.id} order={order} />
           ))}
         </div>
