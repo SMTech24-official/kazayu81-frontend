@@ -1,12 +1,14 @@
 "use client";
-import { RootState } from "@/redux/store";
-import { MessageCircle } from "lucide-react";
-import Image from "next/image";
-import { useSelector } from "react-redux";
 import orderBg from "@/assets/images/orderbg.jpg";
 import profile from "@/assets/images/profile.jpg";
-import { FaMapMarkerAlt } from "react-icons/fa";
+import { useAcceptOrderMutation } from "@/redux/api/orderApi";
+import { RootState } from "@/redux/store";
 import { IOrder } from "@/types/helpOrder";
+import { MessageCircle } from "lucide-react";
+import Image from "next/image";
+import { FaMapMarkerAlt } from "react-icons/fa";
+import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
 
 interface HelpSearchPageCardProps {
   order: IOrder;
@@ -15,17 +17,36 @@ interface HelpSearchPageCardProps {
 const HelpSearchPageCard: React.FC<HelpSearchPageCardProps> = ({ order }) => {
   const user = useSelector((state: RootState) => state.user.user);
   //   console.log(user);
+  const [acceptOrder] = useAcceptOrderMutation();
+
+  // Handle accept order
+  const handleAcceptOrder = async (orderId: number) => {
+    try {
+      await acceptOrder(orderId).unwrap();
+
+      toast.success("Order accepted successfully");
+    } catch (error) {
+      console.log("error", error);
+      toast.error("Error accepting order please try again");
+    }
+  };
 
   return (
     <div className="w-full  bg-white shadow-lg rounded-lg overflow-hidden">
       <div className="relative h-40 bg-gray-100">
         <Image src={orderBg} alt="Background" layout="fill" objectFit="cover" />
-        <p className="absolute bg-white top-3 left-5 p-1 text-xs font-bold rounded-md">#{order?.orderId}</p>
+        <p className="absolute bg-white top-3 left-5 p-1 text-xs font-bold rounded-md">
+          #{order?.orderId}
+        </p>
       </div>
       <div>
         <div className="bg-orange-500 p-4 flex items-center">
           <Image
-            src={order?.customer?.user?.profileImage ? order?.customer?.user?.profileImage : profile}
+            src={
+              order?.customer?.user?.profileImage
+                ? order?.customer?.user?.profileImage
+                : profile
+            }
             alt={order?.customer?.user?.firstName || "Profile Image"}
             width={48}
             height={48}
@@ -43,15 +64,19 @@ const HelpSearchPageCard: React.FC<HelpSearchPageCardProps> = ({ order }) => {
             </div>
           </div>
           <p className="text-base text-black mb-1 font-bold">
-            Service Type | <span className="text-orange-500">{order?.serviceType}</span>
+            Service Type |{" "}
+            <span className="text-orange-500">{order?.serviceType}</span>
           </p>
           <p className="text-base text-black mb-1 font-bold">
-            Help Location | <span className="text-orange-500">{order?.serviceLocation}</span>
+            Help Location |{" "}
+            <span className="text-orange-500">{order?.serviceLocation}</span>
           </p>
           <p className="text-gray-700 mb-4">
             {
               // description will be truncated to 100 characters
-              order?.description.length > 70 ? order?.description.substring(0, 70) + "..." : order?.description
+              order?.description.length > 70
+                ? order?.description.substring(0, 70) + "..."
+                : order?.description
             }
           </p>
           {/* <p className="text-base text-black mb-1 font-bold">
@@ -72,7 +97,10 @@ const HelpSearchPageCard: React.FC<HelpSearchPageCardProps> = ({ order }) => {
                     <button className="mr-2 px-4 py-2 border border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white transition-all duration-300  text-sm font-semibold">
                       Offer free visit
                     </button>
-                    <button className="mr-2 px-4 py-2 border border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white transition-all duration-300  text-sm font-semibold">
+                    <button
+                      onClick={() => handleAcceptOrder(order?.id)}
+                      className="mr-2 px-4 py-2 border border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white transition-all duration-300  text-sm font-semibold"
+                    >
                       Accept
                     </button>
                   </>
