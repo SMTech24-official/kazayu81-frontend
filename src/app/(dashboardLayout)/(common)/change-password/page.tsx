@@ -38,6 +38,7 @@ export default function ChangePasswordForm() {
       setSuccess(true);
     } catch (err) {
       setError("Failed to change password. Please try again.");
+      console.log(err);
     }
   };
 
