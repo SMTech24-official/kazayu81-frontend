@@ -179,7 +179,7 @@ export default function HelpSearchFilterComponent({
         <div className="flex-1">
           <label className="block mb-2">Help Duration</label>
           <Input
-            type="number"
+            type="text"
             name="helpDuration"
             placeholder="Duration"
             value={formData.helpDuration}

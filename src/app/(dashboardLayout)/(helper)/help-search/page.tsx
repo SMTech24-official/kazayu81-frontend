@@ -3,6 +3,7 @@ import HelpSearchFilterComponent from "@/components/helpSearch/HelpSearchFilterC
 import SearchBar from "@/components/helpSearch/SearchBar";
 import HelpSearchPageCard from "@/components/HelpSearchPageCard/HelpSearchPageCard";
 import { useGetAllOrderQuery } from "@/redux/api/orderApi";
+import { TimeUnit } from "@/types/common";
 import { IOrder } from "@/types/helpOrder";
 import React, { useState } from "react";
 
@@ -11,33 +12,38 @@ const HelpSearchPage = () => {
   // const [page, setPage] = useState<number>(1);
   // const [limit, setLimit] = useState<number>(10);
   const [search, setSearch] = useState("");
-   const [formData, setFormData] = useState({
-     serviceType: "",
-     serviceLocation: "",
-     minBudget: "",
-     maxBudget: "",
-     helpDuration: "",
-     durationUnit: "",
-     publishDateFrom: undefined as Date | undefined,
-     publishDateTo: undefined as Date | undefined,
-   });
-
+  const [formData, setFormData] = useState({
+    serviceType: "",
+    serviceLocation: "",
+    minBudget: "",
+    maxBudget: "",
+    helpDuration: "",
+    durationUnit: "",
+    publishDateFrom: undefined as Date | undefined,
+    publishDateTo: undefined as Date | undefined,
+  });
 
   // query["limit"] = limit;
   // query["page"] = page;
   query["searchTerm"] = search;
   // query["serviceType"] = formData.serviceType;
   // query["serviceLocation"] = formData.serviceLocation;
-  // query["minBudget"] = formData.minBudget;
-  // query["maxBudget"] = formData.maxBudget;
-  // query["timeUnit"] = formData.helpDuration;
-  query["duration"] = formData.durationUnit;
+  query["minBudget"] = formData.minBudget;
+  query["maxBudget"] = formData.maxBudget;
+  if (formData.helpDuration !== "") {
+    query["duration"] = formData.helpDuration;
+  }
+  if (
+    formData.durationUnit === TimeUnit.DAYS ||
+    formData.durationUnit === TimeUnit.HOURS ||
+    formData.durationUnit === TimeUnit.MONTHS ||
+    formData.durationUnit === TimeUnit.WEEKS ||
+    formData.durationUnit === TimeUnit.YEARS
+  ) {
+    query["timeUnit"] = formData.durationUnit;
+  }
   query["toDate"] = formData.publishDateTo;
   query["fromDate"] = formData.publishDateFrom;
-
-  console.log(formData.durationUnit);
-
-
 
   // States for calendars open and close
   const [isOpen, setIsOpen] = useState({
@@ -49,14 +55,14 @@ const HelpSearchPage = () => {
   const [errors, setErrors] = useState<any>({});
 
   // Handle search submit
-  const handleSearchSubmit = () => {};
-  console.log("search", search);
+  const handleSearchSubmit = () => {console.log("search", search);};
+  
 
   // fetch all order
   const { data } = useGetAllOrderQuery({ ...query });
   const orderData = data?.data?.data;
-  const orderMeta = data?.data?.meta;
-  console.log(orderMeta);
+  // const orderMeta = data?.data?.meta;
+  // console.log(orderMeta);
 
   return (
     <div className="grid grid-cols-1 xl:grid-cols-4 gap-5">
