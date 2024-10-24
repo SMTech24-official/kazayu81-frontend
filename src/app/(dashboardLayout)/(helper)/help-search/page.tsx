@@ -1,5 +1,6 @@
 "use client";
 import HelpSearchFilterComponent from "@/components/helpSearch/HelpSearchFilterComponent";
+import OfferFreeVisitPopup from "@/components/helpSearch/OfferFreeVisitPopup";
 import SearchBar from "@/components/helpSearch/SearchBar";
 import HelpSearchPageCard from "@/components/HelpSearchPageCard/HelpSearchPageCard";
 import { useGetAllOrderQuery } from "@/redux/api/orderApi";
@@ -22,6 +23,10 @@ const HelpSearchPage = () => {
     publishDateFrom: undefined as Date | undefined,
     publishDateTo: undefined as Date | undefined,
   });
+
+  const [popupIsOpen, setPopupIsOpen] = useState(false);
+
+  const [selectedOfferId, setSelectedOfferId] = useState("");
 
   // query["limit"] = limit;
   // query["page"] = page;
@@ -63,9 +68,7 @@ const HelpSearchPage = () => {
   const { data } = useGetAllOrderQuery({ ...query });
   const orderData = data?.data?.data;
   // const orderMeta = data?.data?.meta;
-  const openDatas = orderData?.filter(
-    (order: IOrder) => order.status === OrderStatus.OPEN
-  );
+  const openDatas = orderData?.filter((order: IOrder) => order.status === OrderStatus.OPEN);
 
   return (
     <div className="grid grid-cols-1 xl:grid-cols-4 gap-5">
@@ -82,17 +85,18 @@ const HelpSearchPage = () => {
 
       <div className="md:col-span-3 ">
         <div className="mb-5">
-          <SearchBar
-            handleSearchSubmit={handleSearchSubmit}
-            setSearch={setSearch}
-          />
+          <SearchBar handleSearchSubmit={handleSearchSubmit} setSearch={setSearch} />
         </div>
         <div className="grid  grid-cols-1 md:grid-cols-2 gap-5 pb-5">
           {openDatas?.map((order: IOrder) => (
-            <HelpSearchPageCard key={order.id} order={order} />
+            <HelpSearchPageCard setSelectedOfferId={setSelectedOfferId} key={order.id} order={order} />
           ))}
         </div>
       </div>
+
+      {/* Popup */}
+
+      <OfferFreeVisitPopup setPopupIsOpen={setPopupIsOpen} popupIsOpen={popupIsOpen} />
     </div>
   );
 };
