@@ -12,10 +12,19 @@ const helpOrderApi = baseApi.injectEndpoints({
       invalidatesTags: ["order"],
     }),
 
-    // get all orders
+    // get orders
     getOrders: build.query({
       query: (arg: Record<string, any>) => ({
         url: `/orders`,
+        method: "GET",
+        params: arg,
+      }),
+      providesTags: ["order"],
+    }),
+
+    getAllOrder: build.query({
+      query: (arg: Record<string, any>) => ({
+        url: `/orders/get-all-order`,
         method: "GET",
         params: arg,
       }),
@@ -91,6 +100,7 @@ const helpOrderApi = baseApi.injectEndpoints({
 export const {
   useCreateOrderMutation,
   useGetOrdersQuery,
+  useGetAllOrderQuery,
   useGetOrderByIdQuery,
   useUpdateOrderMutation,
   useSaveOrPublishOrderMutation,
