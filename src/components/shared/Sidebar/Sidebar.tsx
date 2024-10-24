@@ -11,6 +11,7 @@ export default function Sidebar({ isOpen, toggleSidebar }: { isOpen: boolean; to
   const user = useSelector((state: RootState) => state.user.user);
 
   const settingsLink = user?.role === "CUSTOMER" ? "/update-user-profile" : "/update-helper-profile";
+  const openPage = user?.role === "CUSTOMER" ? "/open" : "/help-search";
 
   return (
     <div>
@@ -38,7 +39,7 @@ export default function Sidebar({ isOpen, toggleSidebar }: { isOpen: boolean; to
         <nav className="p-4">
           <ul className="space-y-2">
             {[
-              { icon: <Package className="mr-2 h-4 w-4" />, label: "Open", link: "/open" },
+              { icon: <Package className="mr-2 h-4 w-4" />, label: "Open", link: openPage },
               {
                 icon: <Gift className="mr-2 h-4 w-4" />,
                 label: "Free Visit Requests!",
