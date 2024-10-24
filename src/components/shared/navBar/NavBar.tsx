@@ -199,7 +199,10 @@ export default function Navbar() {
 
             <p className="text-white">{user?.email}</p>
 
-            <Link className="bg-white text-black px-4 py-2 rounded-md shadow w-fit" href="/open">
+            <Link
+              className="bg-white text-black px-4 py-2 rounded-md shadow w-fit"
+              href={user?.role === "HELPER" ? "/help-search" : "/open"}
+            >
               {" "}
               Dashboard{" "}
             </Link>

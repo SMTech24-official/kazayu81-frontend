@@ -16,6 +16,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Controller, useFieldArray, useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
 
 type FormData = {
   subject: string;
@@ -54,6 +55,35 @@ export default function CreateHelpOrder() {
   });
 
   const onSubmit = async (data: FormData) => {
+    // check every data is nonempty, if not return and lg an error
+
+    if (
+      data.subject === "" ||
+      data.description === "" ||
+      data.duration === "" ||
+      data.timeUnit === undefined ||
+      data.serviceLocation === "" ||
+      data.city === "" ||
+      data.state === "" ||
+      data.serviceType === "" ||
+      data.serviceOption === undefined ||
+      data.budget.length === 0
+    ) {
+      console.error("Please fill all fields");
+      toast.error("Please fill all fields");
+      return;
+    }
+
+    // check for all budget fields and budget step cost is a number which is grater than zero
+
+    for (let i = 0; i < data.budget.length; i++) {
+      if (data.budget[i].stepDescription === "" || isNaN(data.budget[i].stepCost) || data.budget[i].stepCost <= 0) {
+        console.error("Please fill all budget fields correctly");
+        toast.error("Please fill all budget fields correctly");
+        return;
+      }
+    }
+
     // Ensure customerId is included and log data
     const formattedData = {
       ...data,
@@ -72,11 +102,14 @@ export default function CreateHelpOrder() {
 
       if (data.isPublished) {
         router.push("/open"); // Redirect to the Open page
+        toast.success("Order created successfully");
       } else {
         router.push("/saved"); // Redirect to the Saved page
+        toast.success("Order saved successfully");
       }
     } catch (error) {
       console.error("Error creating order:", error);
+      toast.error("Error creating order");
     }
   };
 
@@ -93,10 +126,7 @@ export default function CreateHelpOrder() {
     handleSubmit(onSubmit)(); // Ensure form is submitted correctly
   };
 
-
   // get Regions
-
-  
 
   return (
     <div className="shadow-xl rounded-2xl max-w-2xl mx-auto  mb-10  sm:p-8 border-t border-gray-50">

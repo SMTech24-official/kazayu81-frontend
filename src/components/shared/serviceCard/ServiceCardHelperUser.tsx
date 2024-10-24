@@ -1,23 +1,19 @@
 "use client";
 import orderBg from "@/assets/images/orderbg.jpg";
 import profile from "@/assets/images/profile.jpg";
-import {
-  useCancelOrderMutation,
-  useSaveOrPublishOrderMutation,
-} from "@/redux/api/orderApi";
+import { useCancelOrderMutation, useSaveOrPublishOrderMutation } from "@/redux/api/orderApi";
 import { RootState } from "@/redux/store";
 import { IOrder } from "@/types/helpOrder";
 import { MessageCircle } from "lucide-react";
 import Image from "next/image";
 import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
 
 interface ServiceCardHelperUserProps {
   order: IOrder;
 }
 
-const ServiceCardHelperUser: React.FC<ServiceCardHelperUserProps> = ({
-  order,
-}) => {
+const ServiceCardHelperUser: React.FC<ServiceCardHelperUserProps> = ({ order }) => {
   const user = useSelector((state: RootState) => state.user.user);
 
   const [saveOrPublishOrder, { isLoading }] = useSaveOrPublishOrderMutation();
@@ -26,6 +22,7 @@ const ServiceCardHelperUser: React.FC<ServiceCardHelperUserProps> = ({
   const handleSaveOrPublishOrder = async (orderId: number) => {
     try {
       await saveOrPublishOrder(orderId).unwrap();
+      toast.success("Order published successfully");
     } catch (error) {
       console.log(error);
     }
@@ -34,6 +31,7 @@ const ServiceCardHelperUser: React.FC<ServiceCardHelperUserProps> = ({
   const handleCancelOrder = async (orderId: number) => {
     try {
       await cancelOrder(orderId).unwrap();
+      toast.success("Order cancelled successfully");
     } catch (error) {
       console.log(error);
     }
@@ -43,19 +41,13 @@ const ServiceCardHelperUser: React.FC<ServiceCardHelperUserProps> = ({
     <div className="w-full  bg-white shadow-lg rounded-lg overflow-hidden">
       <div className="relative h-40 bg-gray-100">
         <Image src={orderBg} alt="Background" layout="fill" objectFit="cover" />
-        <p className="absolute bg-white top-3 left-5 p-1 text-xs font-bold rounded-md">
-          #{order?.orderId}
-        </p>
+        <p className="absolute bg-white top-3 left-5 p-1 text-xs font-bold rounded-md">#{order?.orderId}</p>
       </div>
 
       <div>
         <div className="bg-orange-500 p-4 flex items-center">
           <Image
-            src={
-              order?.customer?.user?.profileImage
-                ? order?.customer?.user?.profileImage
-                : profile
-            }
+            src={order?.customer?.user?.profileImage ? order?.customer?.user?.profileImage : profile}
             alt={order?.customer?.user?.firstName || "Profile Image"}
             width={48}
             height={48}
@@ -68,19 +60,15 @@ const ServiceCardHelperUser: React.FC<ServiceCardHelperUserProps> = ({
         <div className="p-6">
           <h2 className="text-xl font-bold mb-2">{order?.subject}</h2>
           <p className="text-base text-black mb-1 font-bold">
-            Service Type |{" "}
-            <span className="text-orange-500">{order?.serviceType}</span>
+            Service Type | <span className="text-orange-500">{order?.serviceType}</span>
           </p>
           <p className="text-base text-black mb-1 font-bold">
-            Help Location |{" "}
-            <span className="text-orange-500">{order?.serviceLocation}</span>
+            Help Location | <span className="text-orange-500">{order?.serviceLocation}</span>
           </p>
           <p className="text-gray-700 mb-4">
             {
               // description will be truncated to 100 characters
-              order?.description.length > 70
-                ? order?.description.substring(0, 70) + "..."
-                : order?.description
+              order?.description.length > 70 ? order?.description.substring(0, 70) + "..." : order?.description
             }
           </p>
           <p className="text-2xl text-end font-bold">$ {order?.totalCost}</p>

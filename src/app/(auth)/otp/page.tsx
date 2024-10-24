@@ -2,7 +2,7 @@
 
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
 import { useVerifyOtpMutation } from "@/redux/api/authApi";
-import { getUserInfo } from "@/utils/getUserInfo";
+import { JwtPayload, jwtDecode } from "jwt-decode";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
@@ -33,13 +33,19 @@ export default function OTPVerification() {
       if (response.success && accessToken) {
         console.log("OTP verified successfully");
         toast.success(response.message);
-        const userInfo = getUserInfo();
+        interface ExtendedJwtPayload extends JwtPayload {
+          role?: string;
+        }
+
+        const userInfo = jwtDecode<ExtendedJwtPayload>(accessToken);
+
+        console.log("userInfo", userInfo);
         // save token in local storage
         localStorage.setItem("accessToken", accessToken);
 
-        if (userInfo?.role === "HELPER") router.push("/help-search");
-
-        if (userInfo?.role === "CUSTOMER") router.push("/open");
+        if (userInfo?.role === "HELPER") {
+          router.push("/help-search");
+        } else if (userInfo?.role === "CUSTOMER") router.push("/open");
 
         // use get-me route to get user data
       }

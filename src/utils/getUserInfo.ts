@@ -1,3 +1,4 @@
+
 import { jwtDecode } from "jwt-decode";
 
 interface UserJwtPayload {
@@ -23,6 +24,8 @@ export const getUserInfo = (): UserJwtPayload | null => {
 
     // Decode the token using jwt-decode
     const user = jwtDecode<UserJwtPayload>(token);
+
+    console.log(user);
 
     return user;
   } catch (error) {
