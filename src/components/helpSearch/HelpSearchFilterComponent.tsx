@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { CalendarIcon } from "lucide-react";
 import { format } from "date-fns";
+import { serviceTitles } from "@/data/ServiceTitles";
 
 interface HelpSearchFilterComponentProps {
   formData: {
@@ -109,166 +110,192 @@ export default function HelpSearchFilterComponent({
 
   // console.table(formData);
 
+  // reset function
+
+  const handleReset = () => {
+    setFormData({
+      serviceType: "",
+      serviceLocation: "",
+      minBudget: "",
+      maxBudget: "",
+      helpDuration: "",
+      durationUnit: "hours",
+      publishDateFrom: undefined,
+      publishDateTo: undefined,
+    });
+    setErrors({});
+  };
+
   return (
-    <form className="w-full flex flex-col gap-5 ">
-      {/* Service Type Field */}
-      <div>
-        <label className="block mb-2">Professional Service Type</label>
-        <Select onValueChange={(value) => handleSelectChange("serviceType", value)} value={formData.serviceType}>
-          <SelectTrigger className="focus:ring-0 w-full focus:ring-offset-0 h-12 text-md">
-            <SelectValue placeholder="Select Service Type" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="type1">Service Type 1</SelectItem>
-            <SelectItem value="type2">Service Type 2</SelectItem>
-            <SelectItem value="type3">Service Type 3</SelectItem>
-          </SelectContent>
-        </Select>
-        {errors.serviceType && <p className="text-red-500">{errors.serviceType}</p>}
-      </div>
-
-      {/* Service Location Field */}
-      <div>
-        <label className="block  mb-2">Service Location</label>
-        <Select
-          onValueChange={(value) => handleSelectChange("serviceLocation", value)}
-          value={formData.serviceLocation}
-        >
-          <SelectTrigger className="focus:ring-0 focus:ring-offset-0 h-12 text-md">
-            <SelectValue placeholder="Select Location" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="location1">Location 1</SelectItem>
-            <SelectItem value="location2">Location 2</SelectItem>
-            <SelectItem value="location3">Location 3</SelectItem>
-          </SelectContent>
-        </Select>
-        {errors.serviceLocation && <p className="text-red-500">{errors.serviceLocation}</p>}
-      </div>
-
-      {/* Budget Fields */}
-      <div className="flex flex-col md:flex-row gap-4">
-        <div className="flex-1">
-          <label className="block  mb-2">Budget (Min)</label>
-          <Input
-            type="number"
-            name="minBudget"
-            placeholder="Min"
-            value={formData.minBudget}
-            onChange={handleInputChange}
-            className=" h-12 text-md"
-          />
-          {errors.minBudget && <p className="text-red-500">{errors.minBudget}</p>}
-        </div>
-        <div className="flex-1">
-          <label className="block  mb-2">Budget (Max)</label>
-          <Input
-            type="number"
-            name="maxBudget"
-            placeholder="Max"
-            value={formData.maxBudget}
-            onChange={handleInputChange}
-            className=" h-12 text-md"
-          />
-          {errors.maxBudget && <p className="text-red-500">{errors.maxBudget}</p>}
-        </div>
-      </div>
-
-      {/* Help Duration Fields */}
-      <div className="flex flex-col md:flex-row gap-4">
-        <div className="flex-1">
-          <label className="block mb-2">Help Duration</label>
-          <Input
-            type="text"
-            name="helpDuration"
-            placeholder="Duration"
-            value={formData.helpDuration}
-            onChange={handleInputChange}
-            className=" h-12 text-md"
-          />
-          {errors.helpDuration && <p className="text-red-500">{errors.helpDuration}</p>}
-        </div>
-        <div className="flex-1">
-          <label className="block  mb-2">Duration Unit</label>
-          <Select onValueChange={(value) => handleSelectChange("durationUnit", value)} value={formData.durationUnit}>
-            <SelectTrigger className="focus:ring-0 focus:ring-offset-0 h-12 text-md">
-              <SelectValue placeholder="Select Unit" />
+    <div>
+      <form className="w-full flex flex-col gap-5 ">
+        {/* Service Type Field */}
+        <div>
+          <label className="block mb-2">Professional Service Type</label>
+          <Select onValueChange={(value) => handleSelectChange("serviceType", value)} value={formData.serviceType}>
+            <SelectTrigger className="focus:ring-0 w-full focus:ring-offset-0 h-12 text-md">
+              <SelectValue placeholder="Select Service Type" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="hours">Hours</SelectItem>
-              <SelectItem value="days">Days</SelectItem>
-              <SelectItem value="weeks">Weeks</SelectItem>
+              {serviceTitles.map((title, index) => (
+                <SelectItem key={index} value={title}>
+                  {title}
+                </SelectItem>
+              ))}
             </SelectContent>
           </Select>
-          {errors.durationUnit && <p className="text-red-500">{errors.durationUnit}</p>}
-        </div>
-      </div>
-
-      {/* Publish Date Fields */}
-      {/* <p>Post Published</p> */}
-      <div className="flex flex-col md:flex-row gap-5">
-        {/* Publish Date From */}
-        <div className="flex-1">
-          <label className="block mb-2">From</label>
-          <Popover open={isOpen.from} onOpenChange={(open) => setIsOpen({ ...isOpen, from: open })}>
-            <PopoverTrigger asChild>
-              <Button
-                onClick={() => setIsOpen({ ...isOpen, from: !isOpen.from })}
-                variant="outline"
-                className={cn(
-                  "w-full pl-3 text-left font-normal  h-12 text-md",
-                  !formData.publishDateFrom && "text-muted-foreground"
-                )}
-              >
-                {formData.publishDateFrom ? format(formData.publishDateFrom, "MM/dd/yyyy") : <span>mm/dd/yyyy</span>}
-                <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent>
-              <Calendar
-                mode="single"
-                selected={formData.publishDateFrom}
-                onSelect={(date) => {
-                  handleDateChange("publishDateFrom", date);
-                  setIsOpen({ ...isOpen, from: false });
-                }}
-              />
-            </PopoverContent>
-          </Popover>
-          {errors.publishDateFrom && <p className="text-red-500">{errors.publishDateFrom}</p>}
+          {errors.serviceType && <p className="text-red-500">{errors.serviceType}</p>}
         </div>
 
-        {/* Publish Date To */}
-        <div className="flex-1">
-          <label className="block mb-2">To</label>
-          <Popover open={isOpen.to} onOpenChange={(open) => setIsOpen({ ...isOpen, to: open })}>
-            <PopoverTrigger asChild>
-              <Button
-                onClick={() => setIsOpen({ ...isOpen, to: !isOpen.to })}
-                variant="outline"
-                className={cn(
-                  "w-full pl-3 text-left font-normal  h-12 text-md",
-                  !formData.publishDateTo && "text-muted-foreground"
-                )}
-              >
-                {formData.publishDateTo ? format(formData.publishDateTo, "MM/dd/yyyy") : <span>mm/dd/yyyy</span>}
-                <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent>
-              <Calendar
-                mode="single"
-                selected={formData.publishDateTo}
-                onSelect={(date) => {
-                  handleDateChange("publishDateTo", date);
-                  setIsOpen({ ...isOpen, to: false });
-                }}
-              />
-            </PopoverContent>
-          </Popover>
-          {errors.publishDateTo && <p className="text-red-500">{errors.publishDateTo}</p>}
+        {/* Service Location Field */}
+        <div>
+          <label className="block  mb-2">Service Location</label>
+          <Select
+            onValueChange={(value) => handleSelectChange("serviceLocation", value)}
+            value={formData.serviceLocation}
+          >
+            <SelectTrigger className="focus:ring-0 focus:ring-offset-0 h-12 text-md">
+              <SelectValue placeholder="Select Location" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="CA">California</SelectItem>
+              <SelectItem value="NY">New York</SelectItem>
+              <SelectItem value="TX">Texas</SelectItem>
+            </SelectContent>
+          </Select>
+          {errors.serviceLocation && <p className="text-red-500">{errors.serviceLocation}</p>}
         </div>
-      </div>
-    </form>
+
+        {/* Budget Fields */}
+        <div className="flex flex-col md:flex-row gap-4">
+          <div className="flex-1">
+            <label className="block  mb-2">Budget (Min)</label>
+            <Input
+              type="number"
+              name="minBudget"
+              placeholder="Min"
+              value={formData.minBudget}
+              onChange={handleInputChange}
+              className=" h-12 text-md"
+            />
+            {errors.minBudget && <p className="text-red-500">{errors.minBudget}</p>}
+          </div>
+          <div className="flex-1">
+            <label className="block  mb-2">Budget (Max)</label>
+            <Input
+              type="number"
+              name="maxBudget"
+              placeholder="Max"
+              value={formData.maxBudget}
+              onChange={handleInputChange}
+              className=" h-12 text-md"
+            />
+            {errors.maxBudget && <p className="text-red-500">{errors.maxBudget}</p>}
+          </div>
+        </div>
+
+        {/* Help Duration Fields */}
+        <div className="flex flex-col md:flex-row gap-4">
+          <div className="flex-1">
+            <label className="block mb-2">Help Duration</label>
+            <Input
+              type="number"
+              name="helpDuration"
+              placeholder="Duration"
+              value={formData.helpDuration}
+              onChange={handleInputChange}
+              className=" h-12 text-md"
+            />
+            {errors.helpDuration && <p className="text-red-500">{errors.helpDuration}</p>}
+          </div>
+          <div className="flex-1">
+            <label className="block  mb-2">Duration Unit</label>
+            <Select onValueChange={(value) => handleSelectChange("durationUnit", value)} value={formData.durationUnit}>
+              <SelectTrigger className="focus:ring-0 focus:ring-offset-0 h-12 text-md">
+                <SelectValue placeholder="Select Unit" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="hours">Hours</SelectItem>
+                <SelectItem value="days">Days</SelectItem>
+                <SelectItem value="weeks">Weeks</SelectItem>
+                <SelectItem value="months">Months</SelectItem>
+                <SelectItem value="years">Years</SelectItem>
+              </SelectContent>
+            </Select>
+            {errors.durationUnit && <p className="text-red-500">{errors.durationUnit}</p>}
+          </div>
+        </div>
+
+        {/* Publish Date Fields */}
+        {/* <p>Post Published</p> */}
+        <div className="flex flex-col md:flex-row gap-5">
+          {/* Publish Date From */}
+          <div className="flex-1">
+            <label className="block mb-2">From</label>
+            <Popover open={isOpen.from} onOpenChange={(open) => setIsOpen({ ...isOpen, from: open })}>
+              <PopoverTrigger asChild>
+                <Button
+                  onClick={() => setIsOpen({ ...isOpen, from: !isOpen.from })}
+                  variant="outline"
+                  className={cn(
+                    "w-full pl-3 text-left font-normal  h-12 text-md",
+                    !formData.publishDateFrom && "text-muted-foreground"
+                  )}
+                >
+                  {formData.publishDateFrom ? format(formData.publishDateFrom, "MM/dd/yyyy") : <span>mm/dd/yyyy</span>}
+                  <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent>
+                <Calendar
+                  mode="single"
+                  selected={formData.publishDateFrom}
+                  onSelect={(date) => {
+                    handleDateChange("publishDateFrom", date);
+                    setIsOpen({ ...isOpen, from: false });
+                  }}
+                />
+              </PopoverContent>
+            </Popover>
+            {errors.publishDateFrom && <p className="text-red-500">{errors.publishDateFrom}</p>}
+          </div>
+
+          {/* Publish Date To */}
+          <div className="flex-1">
+            <label className="block mb-2">To</label>
+            <Popover open={isOpen.to} onOpenChange={(open) => setIsOpen({ ...isOpen, to: open })}>
+              <PopoverTrigger asChild>
+                <Button
+                  onClick={() => setIsOpen({ ...isOpen, to: !isOpen.to })}
+                  variant="outline"
+                  className={cn(
+                    "w-full pl-3 text-left font-normal  h-12 text-md",
+                    !formData.publishDateTo && "text-muted-foreground"
+                  )}
+                >
+                  {formData.publishDateTo ? format(formData.publishDateTo, "MM/dd/yyyy") : <span>mm/dd/yyyy</span>}
+                  <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent>
+                <Calendar
+                  mode="single"
+                  selected={formData.publishDateTo}
+                  onSelect={(date) => {
+                    handleDateChange("publishDateTo", date);
+                    setIsOpen({ ...isOpen, to: false });
+                  }}
+                />
+              </PopoverContent>
+            </Popover>
+            {errors.publishDateTo && <p className="text-red-500">{errors.publishDateTo}</p>}
+          </div>
+        </div>
+      </form>
+      {/* reset button */}
+      <Button onClick={handleReset} className="w-full h-12 bg-orange-500 hover:bg-orange-600 mt-10 text-md">
+        Reset
+      </Button>
+    </div>
   );
 }
