@@ -158,9 +158,9 @@ export default function HelpSearchFilterComponent({
               <SelectValue placeholder="Select Location" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="location1">Location 1</SelectItem>
-              <SelectItem value="location2">Location 2</SelectItem>
-              <SelectItem value="location3">Location 3</SelectItem>
+              <SelectItem value="CA">California</SelectItem>
+              <SelectItem value="NY">New York</SelectItem>
+              <SelectItem value="TX">Texas</SelectItem>
             </SelectContent>
           </Select>
           {errors.serviceLocation && <p className="text-red-500">{errors.serviceLocation}</p>}
@@ -218,6 +218,8 @@ export default function HelpSearchFilterComponent({
                 <SelectItem value="hours">Hours</SelectItem>
                 <SelectItem value="days">Days</SelectItem>
                 <SelectItem value="weeks">Weeks</SelectItem>
+                <SelectItem value="months">Months</SelectItem>
+                <SelectItem value="years">Years</SelectItem>
               </SelectContent>
             </Select>
             {errors.durationUnit && <p className="text-red-500">{errors.durationUnit}</p>}
