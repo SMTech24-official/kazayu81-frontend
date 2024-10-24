@@ -17,7 +17,7 @@ const HelpSearchPage = () => {
      minBudget: "",
      maxBudget: "",
      helpDuration: "",
-     durationUnit: "hours",
+     durationUnit: "",
      publishDateFrom: undefined as Date | undefined,
      publishDateTo: undefined as Date | undefined,
    });
@@ -27,6 +27,16 @@ const HelpSearchPage = () => {
   // query["page"] = page;
   query["searchTerm"] = search;
   // query["serviceType"] = formData.serviceType;
+  // query["serviceLocation"] = formData.serviceLocation;
+  // query["minBudget"] = formData.minBudget;
+  // query["maxBudget"] = formData.maxBudget;
+  // query["timeUnit"] = formData.helpDuration;
+  query["duration"] = formData.durationUnit;
+  query["toDate"] = formData.publishDateTo;
+  query["fromDate"] = formData.publishDateFrom;
+
+  console.log(formData.durationUnit);
+
 
 
   // States for calendars open and close
@@ -45,8 +55,8 @@ const HelpSearchPage = () => {
   // fetch all order
   const { data } = useGetAllOrderQuery({ ...query });
   const orderData = data?.data?.data;
-  // const orderMeta = data?.data?.meta;
-  // console.log(orderData, orderMeta);
+  const orderMeta = data?.data?.meta;
+  console.log(orderMeta);
 
   return (
     <div className="grid grid-cols-1 xl:grid-cols-4 gap-5">
